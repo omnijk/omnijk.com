@@ -11,10 +11,15 @@ import { Toaster } from "sonner";
 const roboto_mono = Roboto_Mono({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Zephyr Lin | Developer",
+  title: "omnijk | Developer",
   description:
-    "Hi, I'm Zephyr Lin, an undergraduate student at University of Minnesota Twin Cities majoring in Computer Science. I am passionate about developing applications that merge aesthetics with purpose.",
+    "Hi, I'm omnijk, an undergraduate student at Shaanxi University of Science & Technology majoring in Data Science and Big Data Technology. I am passionate about developing applications that merge aesthetics with purpose.",
+  icons: {
+    icon: "/images/avatar.png",
+  },
 };
+
+const isVercel = process.env.VERCEL === "1";
 
 export default function RootLayout({ children }) {
   return (
@@ -29,8 +34,8 @@ export default function RootLayout({ children }) {
             <MainWrapper>{children}</MainWrapper>
             <Footer />
           </div>
-          <Analytics />
-          <SpeedInsights />
+          {isVercel ? <Analytics /> : null}
+          {isVercel ? <SpeedInsights /> : null}
           <Toaster />
         </body>
       </ClerkProviderWrapper>
