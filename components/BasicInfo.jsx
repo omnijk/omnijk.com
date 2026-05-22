@@ -6,19 +6,19 @@ export default function BasisInfo() {
       </h2>
       <ul className="flex flex-col gap-5 pl-6 text-sm list-disc">
         <li>
-          👋 You can call me <span className="font-bold">Zephyr</span>,{" "}
-          <span className="font-bold">Zhihao</span> or{" "}
-          <span className="font-bold">智昊</span>.
+          👋 You can call me <span className="font-bold">omnijk</span>.{" "}
+          {/* <span className="font-bold">omnijk</span> or{" "}
+          <span className="font-bold">智昊</span>. */}
         </li>
 
         <li>
           🌎 Current Location:{" "}
           <a
             className="font-bold"
-            href="https://en.wikipedia.org/wiki/Changsha"
+            href="https://en.wikipedia.org/wiki/Xi%27an"
             target="_blank"
           >
-            Changsha, China
+            Xi&#39;an, China
           </a>
           .
         </li>
@@ -26,36 +26,22 @@ export default function BasisInfo() {
           ✈️ Lived in{" "}
           <a
             className="font-bold"
-            href="https://en.wikipedia.org/wiki/Minneapolis"
+            href="https://en.wikipedia.org/wiki/Henan"
             target="_blank"
           >
-            Minneapolis
+            Henan
           </a>
-          ,{" "}
-          <a
+          {" "}
+          {/* <a
             className="font-bold"
-            href="https://en.wikipedia.org/wiki/Amherst,_Massachusetts"
+            href="https://en.wikipedia.org/wiki/Shanghai"
             target="_blank"
           >
-            Amherst
+            Shanghai
           </a>
-          ,{" "}
-          <a
-            className="font-bold"
-            href="https://en.wikipedia.org/wiki/Shenzhen"
-            target="_blank"
-          >
-            Shenzhen
-          </a>
-          ,{" "}
-          <a
-            className="font-bold"
-            href="https://en.wikipedia.org/wiki/Wuhan"
-            target="_blank"
-          >
-            Wuhan
-          </a>
-          , in the past.
+          {" "} */}
+          
+           in the past.
         </li>
       </ul>
     </div>

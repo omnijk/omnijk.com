@@ -1,6 +1,8 @@
-<h1 align="center">zephyrlin.me</h1>
+<h1 align="center">omnijk.com</h1>
 
-<p align="center">一个适合开发者的个人网站</p>
+<p align="center"><a href="../../README.md">English</a></p>
+
+<p align="center">一个面向开发者的个人网站</p>
 
 <p align="center">
   <img src="https://img.shields.io/badge/License-MIT-orange"/>
@@ -10,11 +12,6 @@
 
 ![home page picture](../images/home.png)
 
-## 🤩 更新！2.0版本正在开发中
-
-- 登录认证：Clerk -> Auth.js(Next-Auth)
-- project页面：Sanity -> 自己写的后台管理系统
-- 博客系统：本地储存 -> 自己写的后台管理系统
 
 ## ⚙️ 技术栈
 
@@ -24,24 +21,24 @@
 - 数据库：**Supabase**
 - ORM：**Prisma**
 - 会话缓存：**Upstash Redis**
-- 内容管理系统：**Sanity**
+- 内容管理：**Sanity**
 - 认证：**Clerk**
 - 部署：**Vercel**
 
-## 💡快速开始
+## 💡 快速开始
 
 ### 环境要求
 
-- [Node.js 18.18](https://nodejs.org/) 或更高版本。
+- 请使用 Node.js 18.18 或更高版本。
 
-### 克隆仓库
+### 克隆仓库：
 
 ```bash
-git clone https://github.com/eurooooo/zephyrlin.me.git
-cd zephyrlin.me
+git clone https://github.com/omnijk/omnijk.com
+cd omnijk.com
 ```
 
-### 安装依赖:
+### 安装依赖：
 
 ```bash
 npm install
@@ -49,7 +46,7 @@ npm install
 
 ### 配置 .env 文件
 
-在项目根目录下创建一个 .env 文件，内容如下：
+在项目根目录创建一个 `.env` 文件，填入以下内容：
 
 ```
 # clerk
@@ -74,24 +71,24 @@ SPOTIFY_REDIRECT_URI=
 SPOTIFY_REFRESH_TOKEN=
 ```
 
-现在我们需要设置所有的环境变量。
+接下来请按各服务的说明把这些环境变量补充完整。
 
 #### Clerk
 
-1. 前往 [Clerk官网](https://clerk.com/) 并创建一个应用程序。选择 Google 和 GitHub 作为登录选项：
+1. 前往 Clerk 控制台并创建一个应用，启用 Google 和 GitHub 登录。
    ![clerk1](../images/clerk1.png)
-2. 复制环境变量并粘贴到 .env 文件中：
+2. 将生成的环境变量复制到项目根目录的 `.env` 文件中。
    ![clerk2](../images/clerk2.png)
 
 #### Supabase
 
-1. 前往 [Supabase官网](https://supabase.com/)，创建一个新项目。**重要提示**：将密码存储在某个地方，因为在第 3 步中会用到。等待几分钟，让Supabase设置项目。
+1. 前往 Supabase 并新建项目。请妥善保存项目密码，后续需要使用。
    ![supabase2](../images/supabase1.png)
-2. 点击右上角的 "connect"，选择 ORMs：
+2. 在项目控制台中点击右上角的 "Connect"，选择 ORMs。
    ![supabase3](../images/supabase2.png)
-3. 复制环境变量并粘贴到 .env 文件中。将密码占位符替换为第 1 步中存储的密码。
+3. 将 Supabase 提供的连接字符串等信息填入 `.env` 中，并用第 1 步保存的密码替换占位符。
 
-4. 在终端中运行以下命令：
+4. 在终端运行：
 
 ```bash
 npx prisma db push
@@ -99,17 +96,17 @@ npx prisma db push
 
 #### Sanity
 
-1. 创建一个 Sanity 账号，并且登录。
-2. 在终端中运行以下命令，可以将 "zephyrlin.me" 替换为其他名称。
+1. 创建并登录 Sanity 账号。
+2. 在终端运行（可将项目名替换为你喜欢的名称）：
 
 ```bash
-npm create sanity@latest -- --template clean --create-project "zephyrlin.me" --dataset production  --output-path sanity
+npm create sanity@latest -- --template clean --create-project "omnijk.com" --dataset production  --output-path sanity
 ```
 
-3. 系统可能会要求登录。登录后，按照指引操作：
+3. 按提示登录并初始化项目。
    ![sanity1](../images/sanity1.png)
 
-4. 进入 /sanity/schemaTypes 文件夹，将以下代码粘贴到 index.js 文件中：
+4. 在 `sanity/schemaTypes` 文件夹中，将以下代码粘贴到 `index.js`：
 
 ```javascript
 import { projectsType } from "./project";
@@ -117,7 +114,7 @@ import { projectsType } from "./project";
 export const schemaTypes = [projectsType];
 ```
 
-在同一文件夹下，新增一个名为 project.js 的文件：
+在同一目录下新建 `project.js`：
 
 ```javascript
 import { defineField, defineType } from "sanity";
@@ -157,32 +154,30 @@ export const projectsType = defineType({
 });
 ```
 
-5. 前往 [Sanity官网](https://www.sanity.io/manage) 获取project id，并将其赋值给 .env 文件中的 NEXT_PUBLIC_SANITY_ID。
+5. 在 Sanity 管理后台获取项目 ID，并将其填入 `.env` 的 `NEXT_PUBLIC_SANITY_ID`。
    ![sanity2](../images/sanity2.png)
-6. 在终端中运行以下命令：
+6. 在终端运行：
 
 ```bash
 cd sanity
 npm run dev
 ```
 
-7. 打开 [localhost:3333](http://localhost:3333)，现在可以向网站添加项目了。
+7. 打开 [http://localhost:3333](http://localhost:3333) 即可在 Sanity Studio 中管理内容。
 
-#### Spotify
+#### Spotify（可选）
 
-这是新加的功能，我会尽快写出如何配置。现在你可以把 /app/page.js 里的 Spotify 组件注释掉，这样就能正常运行。
+该功能为新增项，后续会补充详细配置说明。当前若不需要可将 `/app/page.js` 中的 `Spotify` 组件注释掉以避免报错。
 
-### 启动服务器
-
-🎉 恭喜！现在我们可以启动网站了：
+### 启动开发服务器
 
 ```bash
 npm run dev
 ```
 
-在浏览器中访问 [localhost:3000](http://localhost:3000)，查看网站效果。
+在浏览器中打开 [http://localhost:3000](http://localhost:3000) 查看网站。
 
 ## 致谢
 
-- 网站参考了[cali.so](https://cali.so/)的设计。
-- 感谢**智炫**设计背景图和渐变。
+- 项目灵感来自 zephyrlin（zephyrlin.me）。
+- 感谢 omnifj 的帮助与指导。

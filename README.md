@@ -1,4 +1,4 @@
-<h1 align="center">zephyrlin.me</h1>
+<h1 align="center">omnijk.com</h1>
 
 <p align="center"><a href="./public/docs/README_CN.md">简体中文</a></p>
 
@@ -12,11 +12,6 @@
 
 ![home page picture](./public/images/home.png)
 
-## 🤩 Update! Version 2.0 is coming soon...
-
-- Authentication method: Clerk -> Auth.js(Next-Auth)
-- Project page: Sanity -> Admin dashboard
-- Blog System: Locally -> Admin dashboard
 
 ## ⚙️ Tech Stacks
 
@@ -39,8 +34,8 @@
 ### Clone the repository:
 
 ```bash
-git clone https://github.com/eurooooo/zephyrlin.me.git
-cd zephyrlin.me
+git clone https://github.com/omnijk/omnijk.com
+cd omnijk.com
 ```
 
 ### Install dependencies:
@@ -102,10 +97,10 @@ npx prisma db push
 #### Sanity
 
 1. Create an Sanity account and sign in.
-2. In terminal, run the following command. You can replace "zephyrlin.me" with another name.
+2. In terminal, run the following command. You can replace "omnijk.com" with another name.
 
 ```bash
-npm create sanity@latest -- --template clean --create-project "zephyrlin.me" --dataset production  --output-path sanity
+npm create sanity@latest -- --template clean --create-project "omnijk.com" --dataset production  --output-path sanity
 ```
 
 3. Then you will probably be asked to sign in. After you sign in, follow the instructions:
@@ -186,5 +181,5 @@ Navigate to [localhost:3000](http://localhost:3000) to see the website in action
 
 ## Acknowledgements
 
-- The website is inspired by [cali.so](https://cali.so/).
-- Thanks **Zhixuan** for designing the background image and gradient.
+- The website is inspired by [zephyrlin](zephyrlin.me).
+- Thanks **omnifj** for help and guide.
