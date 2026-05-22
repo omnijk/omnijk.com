@@ -1,12 +1,11 @@
 {
-  "name": "zephyrlin.me",
+  "name": "omnijk.com",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "prebuild": "prisma generate",
     "build": "next build",
-    "postbuild": "node scripts/prepare-standalone.mjs",
     "start": "next start",
     "lint": "next lint",
     "postinstall": "prisma generate"

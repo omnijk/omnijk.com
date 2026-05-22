@@ -1,4 +1,4 @@
-# zephyrlin.me 项目速览
+# omnijk.com 项目速览
 
 这是一个基于 Next.js App Router 的个人站点，主要包含首页、博客、项目展示、留言板和 Sanity Studio。前端页面大多是服务端组件，数据来源分为三类：本地静态内容、Sanity 内容库、Prisma 数据库。
 

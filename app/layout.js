@@ -14,6 +14,9 @@ export const metadata = {
   title: "omnijk | Developer",
   description:
     "Hi, I'm omnijk, an undergraduate student at Shaanxi University of Science & Technology majoring in Data Science and Big Data Technology. I am passionate about developing applications that merge aesthetics with purpose.",
+  icons: {
+    icon: "/images/avatar.png",
+  },
 };
 
 const isVercel = process.env.VERCEL === "1";

@@ -34,8 +34,8 @@
 ### 克隆仓库：
 
 ```bash
-git clone https://github.com/eurooooo/zephyrlin.me.git
-cd zephyrlin.me
+git clone https://github.com/omnijk/omnijk.com
+cd omnijk.com
 ```
 
 ### 安装依赖：

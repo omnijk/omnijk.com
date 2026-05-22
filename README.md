@@ -34,8 +34,8 @@
 ### Clone the repository:
 
 ```bash
-git clone https://github.com/eurooooo/zephyrlin.me.git
-cd zephyrlin.me
+git clone https://github.com/omnijk/omnijk.com
+cd omnijk.com
 ```
 
 ### Install dependencies:
