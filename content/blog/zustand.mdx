@@ -1,0 +1,296 @@
+---
+  title: 状态管理库Zustand
+  summary: Zustand：让React状态管理更简单、更高效
+  image: /images/zustand.png
+  author: omnijk
+  publishedAt: '2026-04-28'
+  tag: React状态管理
+---
+
+# Zustand：让React状态管理更简单、更高效
+
+
+在React项目开发中，状态管理一直是一个绕不开的话题。很多人提到状态管理，第一时间会想到Redux。Redux作为一个历史悠久的库，确实在功能性和中间件生态方面都有着不错的表现，但它复杂的配置和繁琐的代码书写让许多开发者望而却步。
+
+## 优势
+
+Zustand是一个轻量级、直观而强大的React状态管理库，它旨在提供一种比Redux和MobX等流行状态管理库更简单、更灵活的方式来管理React项目中的状态。Zustand的API清晰而简洁，学习起来不费力，且不需要繁琐的中间件和复杂的配置。此外，Zustand还天然支持TypeScript，增强了项目的健壮性。
+
+对于追求简洁、高效且希望项目更为健壮的React开发者来说，Zustand无疑是一个值得探索和使用的新选项。在这个技术日新月异的时代，为自己的技术栈添加Zustand，或许能开启React状态管理的新篇章。
+
+
+## 快速开始
+
+安装：
+
+```bash
+npm install zustand
+```
+
+创建并使用一个简单的 store（计数器示例）：
+
+```javascript
+import React from "react";
+import { create } from "zustand";
+
+// 创建 store
+const useStore = create((set) => ({
+  count: 0,
+  setCount: (num) => set({ count: num }),
+  inc: () => set((state) => ({ count: state.count + 1 })),
+}));
+
+export default function Demo() {
+  const { count, setCount, inc } = useStore();
+
+  return (
+    <div>
+      {count}
+      <input
+        onChange={(event) => {
+          setCount(Number(event.target.value));
+        }}
+      />
+      <button onClick={inc}>Increase</button>
+    </div>
+  );
+}
+```
+
+## 存储数组示例
+
+如果需要在 store 中保存数组：
+
+```javascript
+const useStore = create((set) => ({
+  fruits: ["apple", "banana", "orange"],
+  addFruits: (fruit) =>
+    set((state) => ({
+      fruits: [...state.fruits, fruit],
+    })),
+}));
+```
+
+## 访问与读取状态
+
+可以使用 `get()` 在 store 内部读取其它状态：
+
+```javascript
+const useStore = create((set, get) => ({
+  votes: 0,
+  action: () => {
+    const userVotes = get().votes;
+    // 根据 votes 进行后续操作
+  },
+}));
+```
+
+## 与 Redux 对比
+
+Redux 需要定义 initial state、actions、reducers，样板代码较多；Zustand 更倾向于直接在 store 中定义状态与更新逻辑，使用更为直观：
+
+```javascript
+// Redux 示例
+import { createStore } from 'redux';
+
+const initialState = { count: 0 };
+
+function reducer(state = initialState, action) {
+  switch (action.type) {
+    case 'INCREMENT':
+      return { count: state.count + action.qty };
+    default:
+      return state;
+  }
+}
+
+const store = createStore(reducer);
+```
+
+```javascript
+// Zustand 示例
+import { create } from 'zustand';
+
+const useCountStore = create((set) => ({
+  count: 0,
+  increment: (qty) => set((state) => ({ count: state.count + qty })),
+}));
+```
+
+## 常见陷阱及解决方案
+
+- 组件未响应状态变化：在依赖状态进行副作用或条件渲染时，建议使用 `useEffect` 订阅并响应变化：
+
+```javascript
+import React, { useEffect } from 'react';
+import { useConfigStore } from './configStore';
+
+const ThemedComponent = () => {
+  const { theme } = useConfigStore();
+
+  useEffect(() => {
+    // 当 theme 变化时触发副作用
+  }, [theme]);
+
+  return (
+    <div>
+      <p>The current theme is: {theme}</p>
+    </div>
+  );
+};
+```
+
+## 总结
+
+Zustand 是一款轻量、简单且灵活的状态管理库，适合希望减少样板代码并提升开发效率的项目。它与 React Hooks 深度集成，支持渐进式迁移与 TypeScript，在中小型项目或想要减轻状态管理复杂度的场景中尤其适用。
+
+通过这个例子，你可以看到Zustand如何简化了状态管理的过程，只需几行代码即可实现。3
+
+状态中存储数组假设我们需要在Zustand中存储一个数组，我们可以像下面这样定义它：
+```js
+const useStore = create((set) => ({
+  fruits: ['apple', 'banana', 'orange'],
+  addFruits: (fruit) => {
+    set((state) => ({
+      fruits: [...state.fruits, fruit],
+    }));
+  },
+}));
+```
+现在，我们创建了一个含有水果数组状态的store，并通过addFruits函数来更新状态，往数组中添加新的水果。4. 访问存储的状态当我们定义状态时，使用了set()方法来更新状态。如果我们想要从其他地方获取状态值，可以使用get()方法。例如：
+
+```js
+const useStore = create((set, get) => ({
+  votes: 0,
+  action: () => {
+    const userVotes = get().votes;
+    // 根据votes进行后续操作...
+  },
+}));
+```
+通过这个例子，我们可以看到，Zustand提供的get()方法使得从状态存储中访问数据变得非常简单。对比Redux与Zustand状态管理库在现代Web开发中，状态管理是不可或缺的一环。Redux作为一款广泛使用的状态管理库，以其可预测的状态容器为开发者提供了强大的支持。然而，Redux的一些特性，如冗长的代码、actions、reducers和中间件等概念的引入，对于新手来说可能会显得有些复杂，增加了应用程序的复杂度。相较于Redux，Zustand提供了一个更为简洁的API，无需引入额外的概念。它允许你直接使用setState来更新状态，无需编写冗长的actions和reducers。此外，Zustand的体积更小，仅为1KB，相比之下，Redux的体积约为7KB。Redux示例在Redux中，你需要创建一个store，并通过reducers来定义状态的更新逻辑。这通常涉及到定义initial state、actions和reducers：
+
+```js
+import { createStore } from 'redux';
+import { useSelector, useDispatch } from 'react-redux';
+
+const initialState = {
+  count: 0,
+};
+
+const reducer = (state = initialState, action) => {
+  switch (action.type) {
+    case 'INCREMENT':
+      return { count: state.count + action.qty };
+    case 'DECREMENT':
+      return { count: state.count - action.qty };
+    default:
+      return state;
+  }
+};
+
+const store = createStore(reducer);
+
+const Component = () => {
+  const count = useSelector((state) => state.count);
+  const dispatch = useDispatch();
+  // 使用dispatch来更新状态
+};
+```
+
+Zustand示例在Zustand中，你可以直接创建一个store并在其中定义状态和更新状态的函数。这避免了使用actions和reducers，使状态管理更加直观和简洁：
+
+```js
+import { create } from 'zustand';
+
+const useCountStore = create((set) => ({
+  count: 0,
+  increment: (qty) => set((state) => ({ count: state.count + qty })),
+  decrement: (qty) => set((state) => ({ count: state.count - qty })),
+}));
+
+const Component = () => {
+  const { count, increment, decrement } = useCountStore();
+  // 直接调用increment和decrement来更新状态
+};
+```
+
+从上述示例中可以看出，Zustand简化了状态管理的过程，无需通过actions和reducers，提供了一个轻量级且更为直接的Redux替代方案。对于那些寻求更简单、更高效状态管理方式的开发者而言，Zustand是一个值得考虑的选择。Zustand中的潜在陷阱及解决方案在使用Zustand进行状态管理时，确实提供了一种简洁高效的状态管理方式，但在实际应用中，我们也可能会遇到一些潜在的问题。例如，在处理主题更换等需要组件根据状态更新而重新渲染的场景时，可能会出现一些问题。下面通过一个例子来说明这个问题及其解决方案。示例：创建主题和语言类型的store首先，我们创建一个用于管理主题和语言设置的store：
+
+```js
+import { create } from 'zustand';
+
+const useConfigStore = create((set) => ({
+  theme: 'light',
+  lang: 'zh-CN',
+  setLang: (lang) => set({ lang }),
+  setTheme: (theme) => set({ theme }),
+}));
+然后，创建一个组件来消费这个store，并提供主题切换的功能：import React from 'react';
+import { useConfigStore } from './configStore';
+
+const ThemeSwitcher = () => {
+  const { theme, setTheme } = useConfigStore();
+
+  return (
+    <div>
+      <label>
+        Theme:
+        <select value={theme} onChange={(e) => setTheme(e.target.value)}>
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </label>
+    </div>
+  );
+};
+
+export default ThemeSwitcher;
+```
+
+潜在陷阱假设我们想要根据当前的主题在组件中进行一些条件渲染。一种直接的想法可能是这样：
+
+```js
+import React from 'react';
+import { useConfigStore } from './configStore';
+
+const ThemedComponent = () => {
+  const { theme } = useConfigStore();
+
+  return (
+    <div>
+      <p>The current theme is: {theme}</p>
+      {theme === 'light' && <LightComponent />}
+      {theme === 'dark' && <DarkComponent />}
+    </div>
+  );
+};
+```
+
+这种方式初看似乎没有问题，但存在一个细微的陷阱。如果在组件渲染后主题发生了变化，组件并不会自动更新以反映新的主题。这是因为Zustand底层使用了React的useState钩子，而React的状态更新是异步的。解决方案：使用useEffect钩子为了解决这个问题，我们应该使用useEffect钩子，以确保当主题改变时组件能够重新渲染：
+
+```js
+import React, { useEffect } from 'react';
+import { useConfigStore } from './configStore';
+
+const ThemedComponent = () => {
+  const { theme } = useConfigStore();
+
+  useEffect(() => {
+    // 这个回调函数会在主题变化时被调用
+    // 并确保组件重新渲染。
+    // 这里可以进行依赖于主题的逻辑处理。
+  }, [theme]);
+
+  return (
+    <div>
+      <p>The current theme is: {theme}</p>
+      {theme === 'light' && <LightComponent />}
+      {theme === 'dark' && <DarkComponent />}
+    </div>
+  );
+};
+```
+
+通过将theme添加到useEffect的依赖数组中，我们确保了每当主题变化时，效果回调会被重新调用。这样，我们的组件就能够与最新的状态保持同步。这个解决方案展示了如何在Zustand的状态管理中应对组件依赖于状态变化时的自动更新问题，确保应用界面与状态同步，提升用户体验。结束Zustand作为React的一款强大且轻量级的状态管理库，通过提供简单的API和与TypeScript的无缝集成，为开发者们带来了优雅的状态管理体验。它是对于复杂状态管理解决方案如Redux的一个极佳替代品，特别适合那些需要轻量级足迹的中小型应用。
+采用基于hook的方法并大量减少样板代码，Zustand允许开发者将注意力集中于功能构建，而非状态管理的复杂性。无论你是在开始一个新项目，还是在考虑迁移现有项目，Zustand都因其灵活性、性能和对开发者友好的体验而值得一试。Zustand的优势不仅仅在于其轻量级和简单性，还包括其能够轻松集成进现有的React应用中，以及它为现代React开发模式（如函数组件和Hooks）提供的天然支持。此外，Zustand的社区支持和文档也是选择它的重要因素，这些资源可以帮助开发者快速上手并解决开发过程中遇到的问题。总之，对于追求效率、灵活性以及希望通过减少样板代码来提高开发速度的React开发者来说，Zustand提供了一个简单、高效且强大的状态管理解决方案。它的设计理念和易用性使得它成为当前React生态中不可忽视的一员，值得每一位React开发者探索和尝试。

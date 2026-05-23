@@ -1,3 +1,9 @@
+@font-face {
+  font-family: "iconfont";
+  src: url("/fonts/iconfont.ttf?t=1779506982127") format("truetype");
+  font-display: swap;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -76,4 +82,59 @@
 
 .skillsIcon {
   @apply inline-block w-7 h-7;
+}
+
+.chart-card {
+  position: relative;
+  overflow: visible;
+}
+
+.chart-card:hover .chart {
+  transform: scale(1.03);
+}
+
+.radar-marker {
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  width: 78px;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  user-select: none;
+  transition: transform 0.18s ease;
+}
+
+.chart-card:hover .radar-marker {
+  transform: translate(-50%, -50%) scale(1.03);
+}
+
+.radar-marker .icon-box {
+  width: auto;
+  height: auto;
+  display: block;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+.radar-marker .iconfont {
+  font-family: "iconfont" !important;
+  font-size: 26px;
+  line-height: 1;
+  font-weight: 400;
+  font-style: normal;
+  display: block;
+}
+
+.radar-marker .marker-label {
+  font-size: 11px;
+  line-height: 1.15;
+  color: #dbeafe;
+  text-align: center;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+  font-weight: 600;
 }

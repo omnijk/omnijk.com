@@ -1,0 +1,193 @@
+---
+  title: React Fiber究竟在做什么事
+  summary: React Fiber通过将渲染任务拆分为可中断的小片并引入优先级调度，解决了React 15同步渲染阻塞用户交互的卡顿问题。
+  image: /images/fiber.png
+  author: omnijk
+  publishedAt: '2026-05-23'
+  tag: React性能优化
+---
+
+# React Fiber到底解决了什么问题？聊聊大部分前端都忽略的渲染细节
+
+提起React Fiber，很多前端第一反应是："哦，知道，React 16的新特性。"
+
+但如果追问一句："它具体解决了什么问题？为什么React要大费周章重构整个架构？"
+
+能答上来的人就不多了。
+
+今天咱们就从实际场景出发，一层层扒开Fiber的设计思路。看完这篇，下次面试或者技术分享，你能讲得比面试官还清楚。
+
+## 先说痛点：React 15的"卡顿魔咒"
+
+要理解Fiber，得先知道它要解决什么。
+
+在React 15及更早版本，有个硬伤：**渲染是同步的**，一旦开始就停不下来。
+
+
+# React Fiber 到底解决了什么？
+
+> 本文从实战场景出发，分步解释 Fiber 的设计动机、数据结构和执行模型，帮助你在面试或工程实践中给出既清晰又接地气的答案。
+
+## 一、问题与背景（为什么需要 Fiber）
+
+在 React 15 及更早版本，渲染是同步的：一旦开始就必须跑完当前渲染任务。对用户交互体验的影响非常明显，例如：
+
+- 在一个包含 1000 条商品的列表页，用户输入搜索时，整个 diff 与渲染过程会占用主线程。
+- 输入框会发生明显卡顿，输入体验变差。
+
+下面的伪代码演示了同步渲染导致的阻塞：
+
+```javascript
+// 同步渲染示意（伪代码）
+function updateUI() {
+  for (let i = 0; i < 1000; i++) {
+    renderProduct(i);
+  }
+  // 在此完成之前，主线程被占用，用户输入被阻塞
+}
+```
+
+核心问题：JavaScript 单线程 + reconciliation（协调）工作量大时，会把交互阻塞在主线程上。
+
+因此，React 团队希望把一次“大任务”拆成若干可中断的小任务，从而提升界面响应能力——这就是 Fiber 的出发点。
+
+## 二、Fiber 的核心思想（把渲染切片）
+
+Fiber 引入了一种新的内部数据结构：每个 React 元素在内存中对应一个 Fiber 对象，Fiber 通过链表连接以便随时中断和恢复工作。
+
+简化后的 Fiber 结构例子：
+
+```javascript
+const fiberNode = {
+  type: 'div',           // 节点类型
+  stateNode: domElement, // 对应的真实 DOM
+
+  // 链表式链接
+  return: parentFiber,   // 父节点
+  child: firstChildFiber,// 第一个子节点
+  sibling: nextSiblingFiber,
+
+  // diff 相关
+  alternate: oldFiber,   // 指向上次的 Fiber（用于对比）
+  effectTag: 'UPDATE',   // 标记需要执行的操作
+
+  // 调度相关
+  expirationTime: 1234,  // 过期/优先级信息
+}
+```
+
+为什么使用链表？因为链表便于记录当前位置、随时中断遍历并在后续继续，而传统的递归遍历一旦开始难以中断。
+
+## 三、两阶段渲染模型：Render（可中断）和 Commit（不可中断）
+
+### 1) Render 阶段（可中断）
+
+Render 阶段在内存中构建新的 Fiber 树、对比差异并标记要更新的节点。关键点是：这个阶段可以被打断。React 通过将工作分片并在浏览器空闲时推进渲染，从而保证高优先级任务能抢占主线程。
+
+简化的工作循环示例：
+
+```javascript
+function workLoop(deadline) {
+  while (nextUnitOfWork && deadline.timeRemaining() > 0) {
+    nextUnitOfWork = performUnitOfWork(nextUnitOfWork);
+  }
+
+  if (nextUnitOfWork) {
+    requestIdleCallback(workLoop);
+  }
+}
+```
+
+举例：用户输入为高优先级、长列表渲染为低优先级。React 会优先保证输入响应，长列表的渲染会在空闲时间分批完成。
+
+### 2) Commit 阶段（不可中断）
+
+Render 阶段结束后，React 已经决定了 DOM 的变更，Commit 阶段负责把这些变更一次性提交到 DOM。这一阶段必须不可中断，以避免用户看到不一致的中间状态。
+
+Commit 阶段通常开销较小，因为只对变更部分进行更新。
+
+## 四、优先级调度（不是所有更新都平等）
+
+Fiber 的调度机制允许 React 给不同更新分配不同优先级，从而实现用户交互优先、后台任务后置的体验保证。
+
+示意的优先级（简化）：
+
+- ImmediatePriority：立即执行（如输入）
+- UserBlockingPriority：用户阻塞型（如点击动画）
+- NormalPriority：常规更新（如网络返回）
+- LowPriority：低优先级（如统计埋点）
+- IdlePriority：空闲时执行（如日志）
+
+在业务层面，可以通过 React 18 的并发 API（如 startTransition）把非关键更新降为低优先级，从而保持界面流畅。
+
+示例：把搜索结果的更新标记为低优先级
+
+```javascript
+function MyComponent() {
+  const [inputValue, setInputValue] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
+
+  const handleInput = (e) => {
+    setInputValue(e.target.value); // 高优先级，立即更新输入框
+
+    // 搜索结果延后更新
+    startTransition(() => {
+      const results = expensiveSearch(e.target.value);
+      setSearchResults(results);
+    });
+  };
+
+  return (
+    <>
+      <input onChange={handleInput} value={inputValue} />
+      {/* 渲染 searchResults */}
+    </>
+  );
+}
+```
+
+## 五、实践建议（Fiber 如何影响你的写法）
+
+很多人把 Fiber 当成内部实现，认为与业务代码无关。但实际上理解 Fiber 能帮助你写出更高性能的应用：
+
+- 场景：长列表优化
+  - 坏做法：一次性渲染所有数据，会生成大量 Fiber 节点，调和成本高。
+  - 好做法：使用虚拟滚动（virtual scroll）只渲染可见项，减少 Fiber 节点数量。
+
+- 场景：避免主线程卡顿
+  - 利用 React 18 的并发特性（startTransition、useDeferredValue）把不影响交互的更新推迟，保证关键交互流畅。
+
+示例：虚拟滚动减少渲染压力
+
+```javascript
+function ProductList({ products }) {
+  const visibleProducts = useVirtualScroll(products);
+  return visibleProducts.map(p => <ProductCard key={p.id} {...p} />);
+}
+```
+
+## 六、Fiber 与并发渲染（React 18）
+
+Fiber 为 React 的并发特性奠定了基础。React 18 提供的 API（如 Suspense、startTransition、useDeferredValue）都是围绕着可中断的 Render 阶段和优先级调度来设计的。
+
+因此，理解 Fiber 能帮助你更好地使用这些并发 API，提高应用的交互性能与可感知体验。
+
+## 七、面试要点：如何简洁回答“什么是 Fiber？”
+
+面试回答建议（简洁、实战）：
+
+- 本质：Fiber 是 React 16 的新架构，用来把渲染切片并支持优先级调度，解决同步渲染导致的主线程卡顿问题。
+- 数据结构：每个元素对应一个 Fiber 节点，节点通过链表连接（便于中断与恢复）。
+- 执行模型：Render 阶段可中断（在内存中构建变化），Commit 阶段不可中断（一次性修改 DOM）。
+- 业务价值：可以用并发 API（startTransition 等）把不重要的更新降低优先级，从而保证关键交互的流畅性。
+
+如果面试官想听细节，可以补充工作循环、优先级分类与常见优化策略。
+
+## 八、结论
+
+React Fiber 的核心在于“时间切片 + 优先级调度”。理解这点，能让你在工程实践中做出更合适的渲染策略（虚拟滚动、分层更新、合理使用并发 API），既提升性能也提升用户体验。
+
+---
+
+💡 思考题：如果要为 Node.js 后端设计类似 Fiber 的调度系统，用以在大量并发请求中保持实时性，你会怎样平衡优先级、可中断性与吞吐？欢迎在评论区分享你的设计思路。
+

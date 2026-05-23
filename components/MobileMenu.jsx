@@ -16,7 +16,7 @@ import { useEffect, useState } from "react";
 
 export function MobileMenu() {
   const pathname = usePathname();
-  const page = pathname.split("/").slice(0, 2)[1];
+  const page = navigationItems.find((item) => item.href === pathname);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -28,7 +28,7 @@ export function MobileMenu() {
       <SheetTrigger asChild>
         <Button className="bg-secondary text-muted-foreground shadow-[0_0px_3px_0.5px_#2f2f2f] hover:bg-[#f2f2f20d] rounded-full pr-2">
           <span className="pr-1">
-            {pathname === "/" ? "Home" : page[0].toUpperCase() + page.slice(1)}
+            {pathname === "/" ? "Home" : page?.name || "Menu"}
           </span>
           <ChevronDown size={15} />
         </Button>

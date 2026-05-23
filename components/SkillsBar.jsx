@@ -31,9 +31,9 @@ export default function SkillsBar() {
           <ViteIcon className="skillsIcon" />
           <TailwindIcon className="skillsIcon" />
           <NodeIcon className="skillsIcon" />
-          <NextIcon className="skillsIcon" />
+          {/* <NextIcon className="skillsIcon" /> */}
         </div>
-        <div className="flex justify-between w-full">
+        {/* <div className="flex justify-between w-full">
           <JavaIcon className="skillsIcon" />
           <SpringIcon className="skillsIcon" />
           <MySQLIcon className="skillsIcon" />
@@ -42,7 +42,7 @@ export default function SkillsBar() {
           <MongoIcon className="skillsIcon" />
           <SupabaseIcon className="skillsIcon" />
           <RedisIcon className="skillsIcon" />
-        </div>
+        </div> */}
       </div>
     </div>
   );
