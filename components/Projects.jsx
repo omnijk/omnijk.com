@@ -9,7 +9,7 @@ export default function Projects({ projects }) {
         {projects.map((project) => (
           <li key={project._id}>
             <Link href={project.link} target="_blank">
-              <div className="relative flex flex-col items-start justify-center gap-6 p-5 border-dashed border-[0.8px] border-transparent rounded-2xl hover:border-muted-foreground hover:bg-muted">
+              <div className="relative flex flex-col items-start justify-center gap-6 p-5 border border-border/60 rounded-2xl bg-[#f2f2f21a] hover:border-muted-foreground hover:bg-muted">
                 <div className="relative flex items-center justify-center w-12 h-12 shadow-[0_0px_3px_rgb(180,180,180)] rounded-full ">
                   <Image
                     src={project.imageUrl}

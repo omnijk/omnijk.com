@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import Avatar from "./Avatar";
 import Navbar from "./Navbar";
 import SignInAndOut from "./SignIn";
+import ThemeToggle from "./ThemeToggle";
 import GithubIcon from "@/public/icons/GithubIcon";
 import Link from "next/link";
 
@@ -21,11 +22,12 @@ export default function Header() {
         <Link
           href="https://github.com/omnijk/omnijk.com"
           target="_blank"
-          className="opacity-80 hover:opacity-100"
+          className="text-foreground/80 hover:text-foreground dark:text-white/80 dark:hover:text-white"
         >
-          <GithubIcon />
+          <GithubIcon className="h-10 w-10" />
         </Link>
         <SignInAndOut pathname={pathname} />
+        <ThemeToggle />
       </div>
     </header>
   );

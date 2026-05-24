@@ -272,13 +272,13 @@ export default function TechStackRadar() {
     <div className="page w-full">
       <div className="hero mb-5 flex flex-wrap items-end justify-between gap-4">
         <div>
-          <p className="text-xs uppercase tracking-[0.45em] text-sky-200/70">
+          <p className="text-xs uppercase tracking-[0.45em] text-sky-700 dark:text-white">
             Tech Stack
           </p>
-          <h1 className="mt-3 text-3xl font-semibold leading-tight text-slate-100 sm:text-4xl">
+          <h1 className="mt-3 text-3xl font-semibold leading-tight text-sky-900 dark:text-white sm:text-4xl">
             个人技术栈
           </h1>
-          <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-300/80">
+          <p className="mt-3 max-w-3xl text-sm leading-7 text-sky-700/80 dark:text-white/80">
             语言基础、框架生态和工程化工具链。
           </p>
         </div>
@@ -298,7 +298,7 @@ export default function TechStackRadar() {
               className="chart relative z-[1] h-[380px] w-full transition-transform duration-200 ease-out md:h-[420px] xl:h-[440px]"
             />
             <div className="card-head relative z-[1] px-3 pt-2 text-center">
-              <h2 className="card-title mt-3 text-[20px] font-semibold leading-tight text-slate-100">
+              <h2 className="card-title mt-3 text-[20px] font-semibold leading-tight text-sky-800 dark:text-white">
                 {config.title}
               </h2>
             </div>
