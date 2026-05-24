@@ -53,7 +53,26 @@ export default async function Blog({ params }) {
         </header>
 
         <main className="mt-16 prose max-w-none prose-invert prose-p:text-foreground prose-h1:text-foreground prose-h2:text-foreground prose-h3:text-foreground prose-h4:text-foreground prose-ul:text-foreground prose-ol:text-foreground prose-li:text-foreground prose-strong:text-foreground prose-strong:font-bold prose-a:text-blue-400 prose-a:opacity-80 prose-code:text-foreground prose-img:opacity-90 prose-p:tracking-tight prose-p:text-sm prose-li:text-sm">
-          <MDXRemote source={content} />
+          {/* Map markdown <img> to Next.js <Image> for more reliable loading/optimization */}
+          <MDXRemote
+            source={content}
+            components={{
+              img: ({ src, alt }) => {
+                if (!src) return null;
+                return (
+                  <div className="relative w-full aspect-[16/9] mb-6 overflow-hidden rounded-lg">
+                    <Image
+                      src={src}
+                      alt={alt ?? ""}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 800px"
+                    />
+                  </div>
+                );
+              },
+            }}
+          />
         </main>
       </article>
     </section>

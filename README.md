@@ -163,7 +163,7 @@ cd sanity
 npm run dev
 ```
 
-7. Navigate to [localhost:3333](http://localhost:3333), now you can add projects to the website.
+7. Navigate to [http://omnijk.com/studio](http://omnijk.com/studio), now you can add projects to the website.
 
 #### Spotify
 
