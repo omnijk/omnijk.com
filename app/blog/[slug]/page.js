@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import Image from "next/image";
 import { MDXRemote } from "next-mdx-remote/rsc";
+import CodeCopyMount from "@/components/CodeCopyMount";
 import { getBlogBySlug, getBlogs } from "@/lib/blog";
 
 export default async function Blog({ params }) {
@@ -75,6 +76,7 @@ export default async function Blog({ params }) {
               },
             }}
           />
+          <CodeCopyMount />
         </main>
       </article>
     </section>
