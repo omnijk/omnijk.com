@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
+import { MoonStar, SunMedium } from "lucide-react";
 
 export default function ThemeToggle() {
   const { theme, setTheme } = useTheme();
@@ -24,9 +25,9 @@ export default function ThemeToggle() {
       className="flex items-center justify-center w-8 h-8 p-1 rounded-md hover:bg-muted/10 transition"
     >
       {isDark ? (
-        <i className="iconfont icon-taiyang theme-toggle-icon text-[21px] leading-none" aria-hidden="true" />
+        <SunMedium className="size-5" aria-hidden="true" />
       ) : (
-        <i className="iconfont icon-yueliang theme-toggle-icon text-[21px] leading-none" aria-hidden="true" />
+        <MoonStar className="size-5" aria-hidden="true" />
       )}
     </button>
   );

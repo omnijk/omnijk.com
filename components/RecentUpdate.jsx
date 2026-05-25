@@ -18,12 +18,15 @@ export default function RecentUpdate({ blogs }) {
                   href={`/blog/${blog.slug}`}
                   className="relative aspect-[240/135] w-full overflow-hidden rounded-2xl"
                 >
-                  <Image
-                    src={blog.image}
-                    alt="Blog image"
-                    fill
-                    className="object-cover transition duration-300 ease-out group-hover:brightness-110"
-                  />
+                  {blog.image ? (
+                    <Image
+                      src={blog.image}
+                      alt="Blog image"
+                      fill
+                      unoptimized
+                      className="object-cover transition duration-300 ease-out group-hover:brightness-110"
+                    />
+                  ) : null}
                 </div>
 
                 <div className="recent-update-overlay absolute right-0 bottom-0 left-0 p-4 rounded-lg backdrop-blur-md bg-black/60 dark:bg-black/70">

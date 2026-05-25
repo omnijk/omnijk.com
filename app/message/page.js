@@ -10,8 +10,16 @@ import Messages from "@/components/Messages";
 import MessageDescription from "@/components/MessageDescription";
 import Image from "next/image";
 
+export const dynamic = "force-dynamic";
+
 export default async function MessagePage() {
-  const user = await currentUser();
+  let user = null;
+
+  try {
+    user = await currentUser();
+  } catch (error) {
+    console.error("Failed to load Clerk user:", error);
+  }
 
   return (
     <div className="flex flex-col w-full gap-20 lg:w-2/3">

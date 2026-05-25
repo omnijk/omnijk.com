@@ -4,6 +4,8 @@ import Description from "@/components/Description";
 import MotionDivWrapper from "@/components/MotionDivWrapper";
 import { getProjects } from "@/lib/project";
 
+export const dynamic = "force-dynamic";
+
 export default async function ProjectPage() {
   const projects = await getProjects();
 
@@ -15,7 +17,13 @@ export default async function ProjectPage() {
       className="flex flex-col gap-10"
     >
       <Description page="Projects" />
-      <Projects projects={projects} />
+      {projects.length ? (
+        <Projects projects={projects} />
+      ) : (
+        <p className="text-sm text-muted-foreground">
+          Project data is temporarily unavailable.
+        </p>
+      )}
     </MotionDivWrapper>
   );
 }

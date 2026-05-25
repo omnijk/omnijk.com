@@ -14,12 +14,15 @@ export default function Blogs({ blogs }) {
                 href={`/blog/${blog.slug}`}
                 className="relative aspect-[48/27] w-full sm:w-80 rounded-2xl shrink-0"
               >
-                <Image
-                  src={blog.image}
-                  alt="Blog image"
-                  fill
-                  className="object-cover "
-                />
+                {blog.image ? (
+                  <Image
+                    src={blog.image}
+                    alt="Blog image"
+                    fill
+                    unoptimized
+                    className="rounded-2xl object-cover"
+                  />
+                ) : null}
               </div>
 
               <div className="flex flex-col justify-between flex-grow p-4">

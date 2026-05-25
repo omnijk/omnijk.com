@@ -37,21 +37,21 @@
   } */
   /* Default (dark) theme variables */
   :root {
-    --background: 188.6 22.6% 6.1%;
-    --foreground: 180 1.7% 76.5%;
-    --card: 188.6 22.6% 6.1%;
-    --card-foreground: 180 1.7% 76.5%;
-    --popover: 188.6 22.6% 6.1%;
-    --popover-foreground: 180 1.7% 76.5%;
+    --background: 0 0% 0%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 0%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 0%;
+    --popover-foreground: 0 0% 98%;
     --muted: 0 0% 8.5%;
     --muted-foreground: 0 0% 55%;
-    --primary: 180 1.7% 76.5%;
-    --primary-foreground: 186.7 22% 8%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 8%;
     --secondary: 0 0% 94.9% / 5%;
 
     --secondary-foreground: 210 40% 98%;
     --accent: 0 0% 14.5%;
-    --accent-foreground: 180 1.7% 76.5%;
+    --accent-foreground: 0 0% 98%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
 

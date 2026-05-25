@@ -15,11 +15,16 @@ export default function MessageForm({ children }) {
     <form
       action={async (formData) => {
         try {
-          await createMessage(formData);
-          setText("");
-          toast.success("Message sent successfully");
-        } catch (error) {
-          toast.error(error.message || "Failed to send message");
+          const result = await createMessage(formData);
+
+          if (result?.ok) {
+            setText("");
+            toast.success("Message sent successfully");
+          } else {
+            toast.error(result?.message || "Failed to send message");
+          }
+        } catch {
+          toast.error("Failed to send message");
         }
       }}
     >

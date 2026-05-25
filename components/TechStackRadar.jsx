@@ -104,7 +104,7 @@ function createOption(config, echarts) {
       center: ["50%", "56%"],
       radius: "64%",
       splitNumber: 5,
-      name: { show: false },
+      axisName: { show: false },
       indicator: config.indicators,
       splitArea: {
         show: true,
@@ -123,10 +123,9 @@ function createOption(config, echarts) {
         type: "radar",
         symbol: "circle",
         symbolSize: 6,
-        hoverAnimation: false,
         silent: true,
         lineStyle: { width: 2.5 },
-        emphasis: { disabled: true },
+        emphasis: { disabled: true, scale: false },
         data: [
           {
             value: config.values,

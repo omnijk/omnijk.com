@@ -36,8 +36,9 @@ export default async function Blog({ params }) {
               <Image
                 src={image}
                 alt={title || ""}
-                className="object-cover"
                 fill
+                unoptimized
+                className="object-cover"
               />
             </div>
           )}
