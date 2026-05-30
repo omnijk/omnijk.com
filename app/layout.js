@@ -31,6 +31,8 @@ export default function RootLayout({ children }) {
     >
       <head>
         <link rel="stylesheet" href="/fonts/iconfont.css" />
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" href="/images/avatar.png" />
       </head>
       <body className={roboto_mono.className}>
         <ClerkProviderWrapper>

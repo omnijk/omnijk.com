@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import MotionDivWrapper from "@/components/MotionDivWrapper";
 import { getBlogs } from "@/lib/blog";
 import Hero from "@/components/Hero";

@@ -18,6 +18,14 @@ const localization = {
 };
 
 export default function ClerkProviderWrapper({ children }) {
+  const isClerkDisabled =
+    process.env.NEXT_PUBLIC_DISABLE_CLERK === "1" ||
+    !process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
+
+  if (isClerkDisabled) {
+    return <>{children}</>;
+  }
+
   return (
     <ClerkProvider
       appearance={{

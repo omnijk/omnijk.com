@@ -102,7 +102,7 @@ function createOption(config, echarts) {
     radar: {
       shape: "circle",
       center: ["50%", "56%"],
-      radius: "64%",
+      radius: "54%",
       splitNumber: 5,
       axisName: { show: false },
       indicator: config.indicators,
@@ -194,6 +194,11 @@ function placeMarkers(chartEl, card, config) {
 
 export default function TechStackRadar() {
   const chartRefs = useRef([]);
+  const brickRows = [
+    ["HTML", "CSS", "JavaScript", "TypeScript", "ES6", "React"],
+    [ "Redux","Next.js", "Node.js", "Tailwind CSS", "SCSS", , "Git"],
+    ["Vite", "Webpack","Babel", "pnpm", "ECharts", "Sanity"],
+  ];
 
   useEffect(() => {
     let disposed = false;
@@ -268,18 +273,38 @@ export default function TechStackRadar() {
   }, []);
 
   return (
-    <div className="page w-full">
-      <div className="hero mb-5 flex flex-wrap items-end justify-between gap-4">
-        <div>
-          <p className="text-xs uppercase tracking-[0.45em] text-sky-700 dark:text-white">
+    <div className="page w-full -mt-8">
+      <div className="hero mb-5 flex flex-wrap items-end justify-between gap-4 text-center pt-2">
+        <div className="mx-auto">
+          {/* <p className="text-xs uppercase tracking-[0.45em] text-sky-700 dark:text-white">
             Tech Stack
-          </p>
+          </p> */}
           <h1 className="mt-3 text-3xl font-semibold leading-tight text-sky-900 dark:text-white sm:text-4xl">
             个人技术栈
           </h1>
           <p className="mt-3 max-w-3xl text-sm leading-7 text-sky-700/80 dark:text-white/80">
-            语言基础、框架生态和工程化工具链。
+            掌握多种前端开发技术，持续学习和提升。
           </p>
+        </div>
+      </div>
+
+      <div className="mb-8 flex w-full justify-center">
+        <div className="space-y-3">
+          {brickRows.map((row, rowIndex) => (
+            <div
+              key={row.join("-")}
+              className={`flex flex-wrap justify-center gap-3 ${rowIndex % 2 === 1 ? "translate-x-5" : ""}`}
+            >
+              {row.map((item) => (
+                <span
+                  key={item}
+                  className="rounded-full border border-sky-100 bg-white px-5 py-2 text-sm font-semibold tracking-wide text-sky-800 shadow-sm dark:border-white/10 dark:bg-white/10 dark:text-white/90"
+                >
+                  {item}
+                </span>
+              ))}
+            </div>
+          ))}
         </div>
       </div>
 
@@ -294,7 +319,7 @@ export default function TechStackRadar() {
                 chartRefs.current[index] = node;
               }}
               id={config.chartId}
-              className="chart relative z-[1] h-[380px] w-full transition-transform duration-200 ease-out md:h-[420px] xl:h-[440px]"
+              className="chart relative z-[1] h-[270px] w-full transition-transform duration-200 ease-out md:h-[310px] xl:h-[330px]"
             />
             <div className="card-head relative z-[1] px-3 pt-2 text-center">
               <h2 className="card-title mt-3 text-[20px] font-semibold leading-tight text-sky-800 dark:text-white">
