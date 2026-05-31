@@ -42,16 +42,25 @@ export default function MessagePage() {
             >
               <div
                 tabIndex={0}
-                className={`experience-card rounded-2xl border border-border/60 bg-background/80 p-5 shadow-[0_10px_30px_rgba(15,23,42,0.05)] backdrop-blur-sm sm:max-w-md transform transition-transform duration-200 hover:-translate-y-2 hover:shadow-xl focus:-translate-y-2 focus:shadow-xl focus:outline-none ${
+                className={`project-card group relative overflow-hidden rounded-2xl border border-border/60 bg-background/80 p-5 shadow-[0_10px_30px_rgba(15,23,42,0.05)] backdrop-blur-sm sm:max-w-md transform transition-all duration-300 hover:-translate-y-2 hover:border-sky-300/40 hover:shadow-2xl focus-visible:-translate-y-2 focus-visible:border-sky-300/40 focus-visible:shadow-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400/50 ${
                   experience.align === "left"
                     ? "sm:col-start-1 sm:justify-self-end"
                     : "sm:col-start-3 sm:justify-self-start"
                 }`}
               >
-                <div className="mb-3 text-xs italic text-muted-foreground">📅 {experience.date}</div>
-                <h2 className="text-xl font-semibold">{experience.title}</h2>
-                <p className="mt-2 text-sm font-medium text-foreground/85">{experience.subtitle}</p>
-                <p className="mt-3 text-sm leading-6 text-muted-foreground">{experience.description}</p>
+                <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-sky-400/60 to-transparent opacity-80" />
+                <div className="mb-3 text-xs italic text-muted-foreground transition-colors duration-200 group-hover:text-sky-300">
+                  📅 {experience.date}
+                </div>
+                <h2 className="text-xl font-semibold tracking-wide transition-colors duration-200 group-hover:text-sky-300">
+                  {experience.title}
+                </h2>
+                <p className="mt-2 text-sm font-medium text-foreground/85 transition-colors duration-200 group-hover:text-foreground">
+                  {experience.subtitle}
+                </p>
+                <p className="mt-3 text-sm leading-6 text-muted-foreground transition-colors duration-200 group-hover:text-foreground/80">
+                  {experience.description}
+                </p>
               </div>
 
               <div
@@ -61,7 +70,7 @@ export default function MessagePage() {
                   experience.align === "right" ? "top-2" : "top-5"
                 }`}
               >
-                <span className="block h-3 w-3 rounded-full border-4 border-background bg-sky-400 shadow-[0_0_0_8px_rgba(125,211,252,0.18)] hover:animate-pulse focus:animate-pulse" />
+                <span className="block h-3 w-3 rounded-full border-4 border-background bg-sky-400 shadow-[0_0_0_8px_rgba(125,211,252,0.18)] transition-all duration-200 hover:scale-125 hover:shadow-[0_0_0_12px_rgba(125,211,252,0.24)] focus:scale-125 focus:shadow-[0_0_0_12px_rgba(125,211,252,0.24)]" />
               </div>
 
               <div
