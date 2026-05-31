@@ -7,7 +7,7 @@ export default function Footer() {
         <p>
           &copy; {new Date().getFullYear()} omnijk. All rights reserved.
         </p>
-        <div className=" opacity-90">Made with love and 🍰</div>
+        {/* <div className=" opacity-90">Made with love and 🍰</div> */}
         {/* <p className="text-xs opacity-95"> */}
         <p>
           本网站内容仅供学习与交流使用，如有侵权或不当内容请联系删除。

@@ -1,6 +1,6 @@
 @font-face {
   font-family: "iconfont"; /* Project id  */
-  src: url('iconfont.ttf?t=1779623295227') format('truetype');
+  src: url('iconfont.ttf?t=1780195792805') format('truetype');
 }
 
 .iconfont {
@@ -23,8 +23,12 @@
   content: "\e62e";
 }
 
-.icon-React:before {
+.icon-Vue:before {
   content: "\e799";
+}
+
+.icon-React:before {
+  content: "\e79a";
 }
 
 .icon-Nodejs:before {
@@ -33,6 +37,14 @@
 
 .icon-yueliang:before {
   content: "\e764";
+}
+
+.icon-nginx:before {
+  content: "\e56d";
+}
+
+.icon-ceshi:before {
+  content: "\e8ad";
 }
 
 .icon-css:before {
@@ -63,8 +75,20 @@
   content: "\e50c";
 }
 
+.icon-docker:before {
+  content: "\e502";
+}
+
 .icon-vite:before {
   content: "\e66b";
+}
+
+.icon-MOGODB:before {
+  content: "\e63a";
+}
+
+.icon-Redis:before {
+  content: "\e788";
 }
 
 .icon-Typescript:before {

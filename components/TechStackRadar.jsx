@@ -6,90 +6,90 @@ const iconGlyphMap = {
   html: "\ue632",
   css: "\ue61e",
   javascript: "\ue704",
-  typescript: "\ue6e5",
-  es6: "\ue7ac",
-  react: "\ue799",
+  react: "\ue79a",
   nodejs: "\ue7a4",
-  antd: "\ue677",
-  scss: "\ue501",
-  tailwindcss: "\uea15",
+  vue: "\ue799",
+  mongodb: "\ue63a",
+  nginx: "\ue56d",
+  redis: "\ue788",
   vite: "\ue66b",
-  babel: "\ue69d",
-  pnpm: "\ue50c",
+  docker: "\ue502",
   git: "\ue61b",
-  npm_yarn_pnpm: "\ue627",
+  ceshi: "\ue8ad",
+  eslint: "",
 };
 
+function buildChartConfig({ chartId, title, theme, dimensions, radarDimensions }) {
+  const radarSource = radarDimensions ?? dimensions;
+
+  return {
+    chartId,
+    title,
+    theme,
+    markers: dimensions.map(({ name, icon, accent, shortLabel }) => ({
+      name,
+      icon,
+      accent,
+      shortLabel,
+    })),
+    indicators: radarSource.map(({ name }) => ({ name, max: 100 })),
+    values: radarSource.map(({ score }) => score),
+  };
+}
+
 const chartsConfig = [
-  {
+  buildChartConfig({
     chartId: "chart-language",
     theme: {
       line: "rgba(56,189,248,.95)",
       fill: "rgba(56,189,248,.26)",
     },
-    markers: [
-      { name: "HTML", icon: "html", accent: "#fb923c" },
-      { name: "CSS", icon: "css", accent: "#38bdf8" },
-      { name: "JavaScript", icon: "javascript", accent: "#facc15" },
-      { name: "TypeScript", icon: "typescript", accent: "#60a5fa" },
-      { name: "ES6", icon: "es6", accent: "#a78bfa" },
+    title: "前端技术",
+    dimensions: [
+      { name: "HTML", icon: "html", accent: "#fb923c", score: 80 },
+      { name: "CSS", icon: "css", accent: "#38bdf8", score: 78 },
+      { name: "JavaScript", icon: "javascript", accent: "#facc15", score: 76 },
+      { name: "React", icon: "react", accent: "#22d3ee", score: 72 },
+      { name: "Vue", icon: "vue", accent: "#4ade80", score: 20 },
     ],
-    indicators: [
-      { name: "HTML", max: 100 },
-      { name: "CSS", max: 100 },
-      { name: "JavaScript", max: 100 },
-      { name: "TypeScript", max: 100 },
-      { name: "ES6", max: 100 },
+    radarDimensions: [
+      { name: "HTML", score: 80 },
+      { name: "Vue", score: 20 },
+      { name: "JavaScript", score: 76 },
+      { name: "React", score: 72 },
+      { name: "CSS", score: 78 },
     ],
-    values: [96, 91, 94, 85, 92],
-    title: "语言基础",
-  },
-  {
+  }),
+  buildChartConfig({
     chartId: "chart-framework",
     theme: {
       line: "rgba(34,197,94,.92)",
       fill: "rgba(34,197,94,.22)",
     },
-    markers: [
-      { name: "React", icon: "react", accent: "#22d3ee" },
-      { name: "Node.js", icon: "nodejs", accent: "#4ade80" },
-      { name: "Ant Design", icon: "antd", accent: "#818cf8" },
-      { name: "Tailwind CSS", icon: "tailwindcss", accent: "#38bdf8" },
-      { name: "SCSS", icon: "scss", accent: "#fb7185" },
+    title: "后端技术",
+    dimensions: [
+      { name: "Node.js", icon: "nodejs", accent: "#4ade80", score: 70 },
+      { name: "Express", icon: "express", shortLabel: "EX", accent: "#a3e635", score: 20 },
+      { name: "MongoDB", icon: "mongodb", accent: "#22c55e", score: 45 },
+      { name: "Nginx", icon: "nginx", accent: "#f59e0b", score: 45 },
+      { name: "Redis", icon: "redis", accent: "#ef4444", score: 20 },
     ],
-    indicators: [
-      { name: "React", max: 100 },
-      { name: "Node.js", max: 100 },
-      { name: "Ant Design", max: 100 },
-      { name: "Tailwind CSS", max: 100 },
-      { name: "SCSS", max: 100 },
-    ],
-    values: [95, 82, 88, 90, 84],
-    title: "框架与 UI 生态",
-  },
-  {
+  }),
+  buildChartConfig({
     chartId: "chart-tooling",
     theme: {
       line: "rgba(251,191,36,.95)",
       fill: "rgba(251,191,36,.22)",
     },
-    markers: [
-      { name: "Vite", icon: "vite", accent: "#fde047" },
-      { name: "Babel", icon: "babel", accent: "#f97316" },
-      { name: "pnpm", icon: "pnpm", accent: "#a78bfa" },
-      { name: "Git", icon: "git", accent: "#f87171" },
-      { name: "npm", icon: "npm_yarn_pnpm", accent: "#60a5fa" },
+    title: "工具技能",
+    dimensions: [
+      { name: "Git", icon: "git", accent: "#f87171", score: 75 },
+      { name: "Vite", icon: "vite", accent: "#fde047", score: 20 },
+      { name: "ESLint", icon: "eslint", shortLabel: "ES", accent: "#60a5fa", score: 20 },
+      { name: "测试", icon: "ceshi", accent: "#c084fc", score: 75 },
+      { name: "Docker", icon: "docker", accent: "#38bdf8", score: 75 },
     ],
-    indicators: [
-      { name: "Vite", max: 100 },
-      { name: "Babel", max: 100 },
-      { name: "pnpm", max: 100 },
-      { name: "Git", max: 100 },
-      { name: "npm", max: 100 },
-    ],
-    values: [92, 86, 90, 88, 84],
-    title: "工程化与工具链",
-  },
+  }),
 ];
 
 function loadEcharts() {
@@ -176,9 +176,15 @@ function placeMarkers(chartEl, card, config) {
     iconBox.style.color = markerConfig.accent || "#ffffff";
 
     const icon = document.createElement("i");
-    icon.className = "iconfont";
     icon.setAttribute("aria-hidden", "true");
-    icon.textContent = iconGlyphMap[markerConfig.icon] || "";
+    const glyph = iconGlyphMap[markerConfig.icon];
+    if (glyph) {
+      icon.className = "iconfont";
+      icon.textContent = glyph;
+    } else {
+      icon.className = "icon-fallback";
+      icon.textContent = markerConfig.shortLabel || markerConfig.name.slice(0, 2);
+    }
 
     const label = document.createElement("div");
     label.className = "marker-label";
@@ -195,9 +201,9 @@ function placeMarkers(chartEl, card, config) {
 export default function TechStackRadar() {
   const chartRefs = useRef([]);
   const brickRows = [
-    ["HTML", "CSS", "JavaScript", "TypeScript", "ES6", "React"],
-    [ "Redux","Next.js", "Node.js", "Tailwind CSS", "SCSS", , "Git"],
-    ["Vite", "Webpack","Babel", "pnpm", "ECharts", "Sanity"],
+    ["HTML", "CSS","SCSS","Less", "Tailwind CSS", "JavaScript","TypeScript"],
+    [ "React","React-Router","Redux","React Native","Node.js", "Express",],
+    [ "MongoDB", "Nginx","Git", "Vite", "ESLint"],
   ];
 
   useEffect(() => {
@@ -280,10 +286,10 @@ export default function TechStackRadar() {
             Tech Stack
           </p> */}
           <h1 className="mt-3 text-3xl font-semibold leading-tight text-sky-900 dark:text-white sm:text-4xl">
-            个人技术栈
+            技术栈
           </h1>
           <p className="mt-3 max-w-3xl text-sm leading-7 text-sky-700/80 dark:text-white/80">
-            掌握多种前端开发技术，持续学习和提升。
+            掌握多种前端开发技术，持续学习和提升
           </p>
         </div>
       </div>

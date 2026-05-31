@@ -9,17 +9,17 @@ export default function Avatar({ page }) {
 
   return (
     <div className="flex items-center justify-start col-span-1">
-      <Link href="/">
-        {/* <div className="items-center justify-center text-3xl font-bold opacity-50 hover:opacity-90">
-          ZL
-        </div> */}
-
-        <div className="flex flex-col items-start justify-end">
+      <Link href="/" className="avatar-shake-group inline-block">
+        <div
+          className={`flex flex-col items-start justify-end transition-transform duration-700 ease-out will-change-transform ${
+            isHomePage ? "translate-y-20 scale-150" : ""
+          }`}
+        >
           <Image
             src={avatarImg}
             width={60}
             alt="avatar"
-            className={`duration-1000 rounded-full opacity-60 hover:opacity-90 ${page == "/" ? " translate-y-20 scale-150" : ""}`}
+            className="avatar-shake-target rounded-full opacity-90"
             loading={isHomePage ? "eager" : "lazy"}
             unoptimized
           />

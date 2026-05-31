@@ -146,6 +146,46 @@
   transform: translate(-50%, -50%) scale(1.03);
 }
 
+@keyframes avatar-shake {
+  0% {
+    transform: rotate(0deg);
+  }
+  20% {
+    transform: rotate(-8deg);
+  }
+  40% {
+    transform: rotate(8deg);
+  }
+  60% {
+    transform: rotate(-6deg);
+  }
+  80% {
+    transform: rotate(6deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.avatar-shake-target {
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.avatar-shake-group:hover .avatar-shake-target {
+  animation: avatar-shake 0.45s ease;
+}
+
+.icon-fallback {
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 12px;
+  line-height: 1;
+  font-weight: 700;
+  font-style: normal;
+}
+
 .radar-marker .icon-box {
   width: auto;
   height: auto;

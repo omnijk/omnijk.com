@@ -5,23 +5,23 @@ import { MobileMenu } from "./MobileMenu";
 
 export const navigationItems = [
   {
-    name: "Home",
+    name: "首页",
     href: "/",
   },
   {
-    name: "Blog",
+    name: "我的博客",
     href: "/blog",
   },
   {
-    name: "Tech Stack",
-    href: "/tech-stack",
-  },
-  {
-    name: "Project",
+    name: "我的项目",
     href: "/project",
   },
   {
-    name: "Message",
+    name: "我的技能",
+    href: "/tech-stack",
+  },
+  {
+    name: "我的经历",
     href: "/message",
   },
 ];
@@ -59,7 +59,7 @@ export default function Navbar({ page }) {
                     whileHover={{
                       backgroundColor: "#f2f2f20d",
                     }}
-                    className={`px-4 py-3 rounded-full ${item.name != "Home" && item.name != "Blog" && item.name != "About" ? "tracking-tight" : "tracking-widest"} font-bold text-sm`}
+                    className={`px-4 py-3 rounded-full ${item.name !== "首页" && item.name !== "我的博客" ? "tracking-tight" : "tracking-widest"} font-bold text-sm`}
                   >
                     {item.name}
                   </motion.div>

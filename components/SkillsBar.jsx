@@ -18,12 +18,12 @@ import ViteIcon from "@/public/icons/ViteIcon";
 
 export default function SkillsBar() {
   return (
-    <div className="flex flex-col w-full gap-6 px-6 py-4 shadow-[0_0px_1.2px_rgb(140,140,140)] rounded-lg ">
-      <h2 className="mb-6 ml-2 text-lg text-sky-700 dark:text-green-200/60">
+    <div className="flex flex-col w-full gap-4 px-6 py-4 shadow-[0_0px_1.2px_rgb(140,140,140)] rounded-lg border border-border/60 bg-background/80 backdrop-blur-sm transition-all duration-200 hover:-translate-y-1 hover:border-sky-200/70 hover:shadow-lg focus-within:-translate-y-1 focus-within:border-sky-200/70 focus-within:shadow-lg">
+      <h2 className="mb-3 ml-2 text-lg text-sky-700 dark:text-green-200/60">
         ⚙️ Tech Stack
       </h2>
-      <div className="flex flex-col items-center justify-center gap-5">
-        <div className="flex justify-between w-full">
+      <div className="flex flex-col items-center justify-center gap-4">
+        <div className="flex justify-between w-full transition-transform duration-200 hover:scale-[1.01]">
           <HtmlIcon className="skillsIcon" />
           <CSSIcon className="skillsIcon" />
           <JSIcon className="skillsIcon" />
@@ -33,7 +33,7 @@ export default function SkillsBar() {
           <NodeIcon className="skillsIcon" />
           {/* <NextIcon className="skillsIcon" /> */}
         </div>
-        <div className="flex flex-wrap items-center justify-between w-full">
+        <div className="flex flex-wrap items-center justify-between w-full transition-transform duration-200 hover:scale-[1.01]">
           <i className="iconfont icon-Typescript skillsIconFont text-[#3178c6]" aria-label="TypeScript" title="TypeScript" />
           <i className="iconfont icon-scss skillsIconFont text-[#cc6699]" aria-label="SCSS" title="SCSS" />
           <i className="iconfont icon-pnpm skillsIconFont text-[#f9ad00]" aria-label="PNPM" title="PNPM" />

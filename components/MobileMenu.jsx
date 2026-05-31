@@ -28,7 +28,7 @@ export function MobileMenu() {
       <SheetTrigger asChild>
         <Button className="bg-secondary text-muted-foreground shadow-[0_0px_3px_0.5px_#2f2f2f] hover:bg-[#f2f2f20d] rounded-full pr-2">
           <span className="pr-1">
-            {pathname === "/" ? "Home" : page?.name || "Menu"}
+            {pathname === "/" ? "首页" : page?.name || "菜单"}
           </span>
           <ChevronDown size={15} />
         </Button>
