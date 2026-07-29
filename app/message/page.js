@@ -1,11 +1,19 @@
 const experiences = [
   {
-    date: "2026年2月 - 至今",
+    date: "2026年6月 - 至今",
+    title: "前端开发实习生",
+    subtitle: "🏢 北京广通优云科技有限公司",
+    description:
+      "在实习中将理论知识付诸实践，持续成长，励志成为一名优秀的前端开发者。",
+    align: "left",
+  },
+  {
+    date: "2025年2月 - 至今",
     title: "前端工程师",
     subtitle: "✈️ 说走就走!!!",
     description:
       "要去做前端工程师，前端是一个充满挑战和乐趣的领域，我希望能在这个领域中不断学习和成长。",
-    align: "left",
+    align: "right",
   },
   {
     date: "2023年9月 - 2027年6月",
@@ -13,10 +21,10 @@ const experiences = [
     subtitle: "🏫 陕西科技大学",
     description:
       "数据科学与大数据技术专业。在校期间学习了 web 前端基础、数据结构等课程。",
-    align: "right",
+    align: "left",
   },
+  
 ];
-
 export default function MessagePage() {
   return (
     <section className="page w-full -mt-8">

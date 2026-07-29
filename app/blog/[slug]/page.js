@@ -1,8 +1,16 @@
+// mdx渲染逻辑
+
+// 404notfound页面，找不到的时候显示
 import { notFound } from "next/navigation";
+// 路由导航组件
 import Link from "next/link";
+// 左箭头组件，返回按钮
 import { ArrowLeft } from "lucide-react";
+// next的图片组件，自动处理图片优化、懒加载
 import Image from "next/image";
+// 将md和mdx
 import { MDXRemote } from "next-mdx-remote/rsc";
+import remarkGfm from "remark-gfm";
 import CodeCopyMount from "@/components/CodeCopyMount";
 import { getBlogBySlug, getBlogs } from "@/lib/blog";
 
@@ -54,9 +62,14 @@ export default async function Blog({ params }) {
           <p className="">{summary}</p>
         </header>
 
-        <main className="blog-content mt-16 prose max-w-none dark:prose-invert prose-p:text-foreground prose-h1:text-foreground prose-h2:text-foreground prose-h3:text-foreground prose-h4:text-foreground prose-ul:text-foreground prose-ol:text-foreground prose-li:text-foreground prose-strong:text-foreground prose-strong:font-bold prose-a:text-blue-400 prose-a:opacity-80 prose-code:text-foreground prose-img:opacity-90 prose-p:tracking-tight prose-p:text-base prose-li:text-base prose-pre:border prose-pre:border-border/60 prose-pre:bg-[#f8fafc] dark:prose-pre:border-white/10 dark:prose-pre:bg-[#0b0b0b]">
+        <main className="blog-content mt-16 prose max-w-none dark:prose-invert prose-p:text-foreground prose-h1:text-foreground prose-h2:text-foreground prose-h3:text-foreground prose-h4:text-foreground prose-ul:text-foreground prose-ol:text-foreground prose-li:text-foreground prose-strong:text-foreground prose-strong:font-bold prose-a:text-blue-400 prose-a:opacity-80 prose-code:text-foreground prose-code:before:content-none prose-code:after:content-none prose-img:opacity-90 prose-p:tracking-tight prose-p:text-base prose-li:text-base prose-pre:border prose-pre:border-border/60 prose-pre:bg-[#f8fafc] dark:prose-pre:border-white/10 dark:prose-pre:bg-[#0b0b0b]">
           <MDXRemote
             source={content}
+            options={{
+              mdxOptions: {
+                remarkPlugins: [remarkGfm],
+              },
+            }}
             components={{
               pre: (props) => (
                 <pre className="overflow-x-auto rounded-lg border border-border/60 bg-[#f8fafc] p-4 text-sm dark:border-white/10 dark:bg-[#0b0b0b]" {...props} />
