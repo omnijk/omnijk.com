@@ -1,14 +1,7 @@
-// mdx渲染逻辑
-
-// 404notfound页面，找不到的时候显示
 import { notFound } from "next/navigation";
-// 路由导航组件
 import Link from "next/link";
-// 左箭头组件，返回按钮
 import { ArrowLeft } from "lucide-react";
-// next的图片组件，自动处理图片优化、懒加载
 import Image from "next/image";
-// 将md和mdx
 import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
 import CodeCopyMount from "@/components/CodeCopyMount";
@@ -27,15 +20,13 @@ export default async function Blog({ params }) {
 
   return (
     <section className="flex pr-8 mx-auto">
-      <aside className="relative hidden pt-14 2xl:block">
-        <Link
-          href="/blog"
-          className="sticky flex items-center gap-1 py-2 pl-4 pr-5 rounded-full top-10 text-foreground font-semibold bg-[#f2f2f21a] shadow-md dark:shadow-none"
-        >
-          <ArrowLeft className="w-5 h-5" />
-          <span>Back</span>
-        </Link>
-      </aside>
+      <Link
+        href="/blog"
+        aria-label="返回博客列表"
+        className="fixed left-[1.625rem] top-[10.25rem] z-40 inline-flex h-10 w-10 items-center justify-center rounded-full border border-border/60 bg-muted/70 text-foreground shadow-sm backdrop-blur-sm transition-colors hover:bg-accent hover:text-accent-foreground sm:left-[3.625rem] md:left-[5.625rem] min-[896px]:left-[calc(50%-22.375rem)] lg:left-[calc(50%-28.375rem)] xl:left-[calc(50%-36.375rem)]"
+      >
+        <ArrowLeft className="h-5 w-5" />
+      </Link>
 
       <article className="w-full max-w-3xl mx-auto mt-16">
         <header>
@@ -84,6 +75,7 @@ export default async function Blog({ params }) {
                     width={1200}
                     height={675}
                     sizes="(max-width: 768px) 100vw, 800px"
+                    unoptimized
                     className="mb-6 h-auto w-full rounded-lg object-cover"
                   />
                 );

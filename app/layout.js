@@ -1,5 +1,6 @@
 import "./global.css";
 import "@/components/ProfileRevealCard/styles.css";
+import "@/public/fonts/iconfont.css";
 import { Roboto_Mono } from "next/font/google";
 import ThemeProviderWrapper from "@/components/ThemeProviderWrapper";
 import Header from "@/components/Header";
@@ -30,7 +31,6 @@ export default function RootLayout({ children }) {
       className="scrollbar-thin scrollbar-thumb-muted-foreground scrollbar-track-muted"
     >
       <head>
-        <link rel="stylesheet" href="/fonts/iconfont.css" />
         <link rel="icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" href="/images/avatar.png" />
       </head>
