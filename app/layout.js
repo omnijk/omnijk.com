@@ -1,4 +1,5 @@
 import "./global.css";
+import "@/components/ProfileRevealCard/styles.css";
 import { Roboto_Mono } from "next/font/google";
 import ThemeProviderWrapper from "@/components/ThemeProviderWrapper";
 import Header from "@/components/Header";

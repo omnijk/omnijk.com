@@ -44,7 +44,12 @@
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
+    "@babel/core": "^7.29.7",
+    "@babel/preset-env": "^7.29.7",
+    "@babel/preset-typescript": "^7.29.7",
     "@tailwindcss/typography": "^0.5.15",
+    "@types/node": "26.1.0",
+    "babel-loader": "^10.1.1",
     "eslint": "^8",
     "eslint-config-next": "14.2.13",
     "postcss": "^8",

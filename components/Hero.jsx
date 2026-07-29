@@ -1,6 +1,35 @@
 import Image from "next/image";
 import HeroAnimation from "./HeroAnimation";
 import Socials from "./Socials";
+import React from 'react';
+import ProfileRevealCard from './ProfileRevealCard/index.tsx';
+
+// const baseTheme = {
+//   background: '#ffffff',
+//   color: '#222222',
+//   overlay: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+// };
+
+// const overlayTheme = {
+//   background: '#fff7ed',
+//   color: '#9a3412',
+//   overlay: 'linear-gradient(135deg, #0d9488 0%, #059669 100%)',
+// };
+
+// export default function App() {
+//   return (
+//     <ProfileRevealCard
+//       baseText="I&apos;m an undergraduate student at Shaanxi University of Science & Technology
+//           majoring in Data Science and Big Data Technology. Passionate about building applications
+//           that merge purpose with aesthetics."
+//       overlayText="你好，我是 omnijk，目前就读于陕西科技大学数据科学与大数据技术专业。
+//           <br />
+//           专注于前端开发领域，致力于在代码逻辑与视觉美学之间寻找平衡，热爱开发兼具美感与实用性的应用。
+//           <br />"
+//       duration={600}
+//     />
+//   );
+// }
 
 export default function Hero() {
   return (
@@ -17,29 +46,19 @@ export default function Hero() {
         #omnijk #iccy 
       </p>
 
-      <p className="group relative mb-4 grid min-h-[4.5rem] text-sm text-transparent bg-clip-text bg-gradient-to-b sm:mb-6 sm:min-h-[5.5rem] sm:text-base to-muted-foreground from-foreground">
-        <span className="col-start-1 row-start-1 block transition-[opacity,visibility] duration-150 delay-150 group-hover:delay-0 group-hover:opacity-0 group-hover:invisible">
-          I&apos;m an undergraduate student at Shaanxi University of Science & Technology
-          majoring in Data Science and Big Data Technology. Passionate about building applications
-          that merge purpose with aesthetics.
-        </span>
-        <span className="pointer-events-none col-start-1 row-start-1 text-[15px] leading-7 opacity-0 invisible transition-[opacity,visibility] duration-150 delay-0 group-hover:delay-150 group-hover:opacity-100 group-hover:visible sm:text-[17px] sm:leading-8">
-          你好，我是 omnijk，目前就读于陕西科技大学数据科学与大数据技术专业。
-          <br />
-          专注于前端开发领域，致力于在代码逻辑与视觉美学之间寻找平衡，热爱开发兼具美感与实用性的应用。
-          <br />
-          <span className="inline-flex items-center gap-2">
-            期待我们的学习交流(•ᴗ•)
-            {/* <Image
-              src="/emoji/hug.svg"
-              alt="hug"
-              className="inline-block h-5 w-5 align-text-bottom opacity-0 transition-opacity duration-200 delay-100 group-hover:opacity-100"
-              width={20}
-              height={20}
-            /> */}
-          </span>
-        </span>
-      </p>
+      {/* 注意：外层不能加 text-transparent/bg-clip-text，
+          否则祖先 background-clip:text 会穿透放大镜的 mask 导致中英文重叠 */}
+      <div className="relative mb-4 text-sm sm:mb-6 sm:text-base">
+        <ProfileRevealCard
+          baseTheme={{ background: 'transparent', color: 'hsl(var(--foreground))', overlay: 'transparent' }}
+          baseText={`I'm an undergraduate student at Shaanxi University of Science & Technology
+majoring in Data Science and Big Data Technology.
+Passionate about building applications that merge purpose with aesthetics.`}
+          overlayText={`你好，我是 omnijk，目前就读于陕西科技大学数据科学与大数据技术专业。
+专注于前端开发领域，致力于在代码逻辑与视觉美学之间寻找平衡。
+热爱开发兼具美感与实用性的应用。期待我们的学习交流(•ᴗ•)`}
+        />
+      </div>
 
       <Socials />
     </div>
