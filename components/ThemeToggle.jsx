@@ -12,7 +12,10 @@ export default function ThemeToggle() {
 
   if (!mounted) {
     return (
-      <button aria-label="Toggle theme" className="w-8 h-8 rounded-md" />
+      <span
+        aria-hidden="true"
+        className="inline-flex h-9 w-9 rounded-[8px] border border-black/[0.08] bg-white/60 dark:border-white/[0.1] dark:bg-white/[0.04]"
+      />
     );
   }
 
@@ -20,14 +23,15 @@ export default function ThemeToggle() {
 
   return (
     <button
-      aria-label="Toggle theme"
+      type="button"
+      aria-label="切换主题"
       onClick={() => setTheme(isDark ? "light" : "dark")}
-      className="flex items-center justify-center w-8 h-8 p-1 rounded-md hover:bg-muted/10 transition"
+      className="inline-flex h-9 w-9 items-center justify-center rounded-[8px] border border-black/[0.08] bg-white/60 text-foreground/70 transition-all hover:-translate-y-px hover:bg-black/[0.04] hover:text-foreground dark:border-white/[0.1] dark:bg-white/[0.04] dark:hover:bg-white/[0.08]"
     >
       {isDark ? (
-        <SunMedium className="size-5" aria-hidden="true" />
+        <SunMedium className="h-[17px] w-[17px]" aria-hidden="true" />
       ) : (
-        <MoonStar className="size-5" aria-hidden="true" />
+        <MoonStar className="h-[17px] w-[17px]" aria-hidden="true" />
       )}
     </button>
   );

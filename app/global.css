@@ -103,21 +103,14 @@
   }
   body {
     @apply bg-background text-foreground;
-    background-image:
-      radial-gradient(circle at top left, hsl(199 89% 48% / 0.18), transparent 34%),
-      radial-gradient(circle at 85% 12%, hsl(262 83% 58% / 0.12), transparent 28%),
-      radial-gradient(circle at 50% 100%, hsl(180 70% 45% / 0.08), transparent 28%),
-      linear-gradient(180deg, hsl(var(--background)) 0%, hsl(var(--background)) 36%, hsl(210 40% 98% / 0.03) 100%);
     background-attachment: fixed;
   }
 }
 
+/* 浅色页面底色对齐 LangChain：#F2F9FF，去掉彩色渐变 */
 html.light body {
-  background-image:
-    radial-gradient(circle at top left, hsl(199 89% 48% / 0.1), transparent 32%),
-    radial-gradient(circle at 88% 10%, hsl(262 83% 58% / 0.08), transparent 26%),
-    radial-gradient(circle at 50% 100%, hsl(180 70% 45% / 0.05), transparent 26%),
-    linear-gradient(180deg, hsl(var(--background)) 0%, hsl(210 40% 98% / 0.9) 100%);
+  background-color: #f2f9ff;
+  background-image: none;
 }
 
 html:not(.light) body {
@@ -258,28 +251,6 @@ html:not(.light) pre {
 
 html:not(.light) .prose :not(pre) > code {
   color: #7dd3fc;
-}html.light .site-nav {
-  background: rgba(255, 255, 255, 0.82) !important;
-  border: 1px solid rgba(15, 23, 42, 0.08);
-  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
-}
-
-html.light .site-nav-item {
-  color: rgba(15, 23, 42, 0.72);
-}
-
-html.light .site-nav-item:hover {
-  background: rgba(15, 23, 42, 0.07) !important;
-  color: rgba(15, 23, 42, 0.95);
-}
-
-html.light .site-nav-selected {
-  background: rgba(15, 23, 42, 0.06) !important;
-}
-
-html.light .site-nav-selected-line {
-  border-top-color: rgba(15, 23, 42, 0.38);
-  box-shadow: 0 20px 100px 8px rgba(15, 23, 42, 0.14);
 }
 
 html.light .blog-content pre {
@@ -313,11 +284,5 @@ html.light .recent-update-overlay h2 {
 
 html.light .recent-update-overlay p {
   color: rgba(51, 65, 85, 0.92) !important;
-}
-
-/* Ensure theme toggle icon size wins over iconfont.css default */
-.theme-toggle-icon.iconfont {
-  font-size: 22px !important;
-  line-height: 1 !important;
 }
 

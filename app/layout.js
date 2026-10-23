@@ -1,7 +1,7 @@
 import "./global.css";
 import "@/components/ProfileRevealCard/styles.css";
 import "@/public/fonts/iconfont.css";
-import { Roboto_Mono } from "next/font/google";
+import { Inter, Roboto_Mono } from "next/font/google";
 import ThemeProviderWrapper from "@/components/ThemeProviderWrapper";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -10,6 +10,12 @@ import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const roboto_mono = Roboto_Mono({ subsets: ["latin"] });
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+});
 
 export const metadata = {
   title: "omnijk | Developer",
@@ -33,7 +39,7 @@ export default function RootLayout({ children }) {
         <link rel="icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" href="/images/avatar.png" />
       </head>
-      <body className={roboto_mono.className}>
+      <body className={`${roboto_mono.className} ${inter.variable}`}>
         <ThemeProviderWrapper>
           <div className="flex flex-col items-center px-4 pt-10 mx-auto max-w-4xl lg:max-w-5xl sm:px-12 md:px-20 lg:px-12 xl:max-w-7xl min-h-svh">
             <Header />

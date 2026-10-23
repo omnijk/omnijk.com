@@ -1,7 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { MobileMenu } from "./MobileMenu";
 
 export const navigationItems = [
   {
@@ -28,51 +27,35 @@ export const navigationItems = [
 
 export default function Navbar({ page }) {
   return (
-    <>
-      <div className="justify-center hidden col-span-2 mt-0.5 sm:flex h-14">
-        <ul className="site-nav items-center justify-center hidden bg-[#f2f2f21a] rounded-full sm:flex px-2 py-1 ">
-          {navigationItems.map((item) => {
-            const isSelected = page == item.href;
-            return (
-              <motion.li key={item.name} className="relative">
-                {isSelected && (
-                  <>
-                    <div className="site-nav-selected-line absolute left-1/4 w-1/2 mx-auto border-t-[3px] rounded-full shadow-[0_20px_100px_8px_#fff]">
-                      <motion.div
-                        className="absolute inset-0"
-                        layoutId="selected"
-                      ></motion.div>
-                    </div>
-                    <div className="site-nav-selected absolute top-0.5 bottom-0.5 w-full bg-[#f2f2f20d] rounded-full">
-                      <motion.div
-                        className="absolute inset-0"
-                        layoutId="selecteddiv"
-                      ></motion.div>
-                    </div>
-                  </>
-                )}
-                <Link
-                  href={item.href}
-                  className="site-nav-item block rounded-full overflow-hidden"
-                >
-                  <motion.div
-                    whileHover={{
-                      backgroundColor: "#f2f2f20d",
-                    }}
-                    className={`px-4 py-3 rounded-full ${item.name !== "首页" && item.name !== "我的博客" ? "tracking-tight" : "tracking-widest"} font-bold text-sm`}
-                  >
-                    {item.name}
-                  </motion.div>
-                </Link>
-              </motion.li>
-            );
-          })}
-        </ul>
-      </div>
+    <nav className="absolute left-1/2 hidden -translate-x-1/2 lg:block">
+      <ul className="flex items-center gap-1">
+        {navigationItems.map((item) => {
+          const isSelected = page === item.href;
 
-      <div className="flex items-center justify-center sm:hidden">
-        <MobileMenu />
-      </div>
-    </>
+          return (
+            <li key={item.name} className="relative">
+              {isSelected && (
+                <motion.span
+                  layoutId="nav-active"
+                  className="absolute inset-0 rounded-[7px] bg-black/[0.055] dark:bg-white/[0.09]"
+                  transition={{ type: "spring", stiffness: 420, damping: 34 }}
+                />
+              )}
+              <Link
+                href={item.href}
+                aria-current={isSelected ? "page" : undefined}
+                className={`relative z-10 flex h-9 items-center rounded-[7px] px-4 text-sm font-medium tracking-[-0.015em] transition-colors ${
+                  isSelected
+                    ? "text-foreground"
+                    : "text-foreground/65 hover:text-foreground"
+                }`}
+              >
+                {item.name}
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
+    </nav>
   );
 }

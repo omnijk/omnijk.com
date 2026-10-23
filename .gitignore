@@ -38,3 +38,7 @@ next-env.d.ts
 
 #todo.md
 TODO.md
+
+# local verification artifacts
+/.chrome-*
+/.tmp-*
