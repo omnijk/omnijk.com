@@ -1,69 +1,55 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
-export default function HeroAnimation({ text1, text2, speed = 100 }) {
-  const [displayText, setDisplayText] = useState(text1);
-  const [currentIndex, setCurrentIndex] = useState(text1.length);
-  const [typeStatus, setTypeStatus] = useState("typing"); // To track typing vs deleting
-  const [isText1, setIsText1] = useState(true); // Display text1 vs text2
-  const [showCursor, setShowCursor] = useState(true); // For blinking cursor
+export default function HeroAnimation({ texts, speed = 100 }) {
+  const [textIndex, setTextIndex] = useState(0);
+  const [displayText, setDisplayText] = useState(texts[0]);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [showCursor, setShowCursor] = useState(true);
 
   useEffect(() => {
+    const currentText = texts[textIndex];
+    const isComplete = !isDeleting && displayText === currentText;
+    const isEmpty = isDeleting && displayText === "";
+
+    if (isComplete) {
+      const timeout = setTimeout(() => setIsDeleting(true), 2000);
+      return () => clearTimeout(timeout);
+    }
+
+    if (isEmpty) {
+      const timeout = setTimeout(() => {
+        setTextIndex((index) => (index + 1) % texts.length);
+        setIsDeleting(false);
+      }, 500);
+
+      return () => clearTimeout(timeout);
+    }
+
     const timeout = setTimeout(() => {
-      if (
-        typeStatus === "typing" &&
-        currentIndex < (isText1 ? text1.length : text2.length)
-      ) {
-        // Typing forward
-        setDisplayText(
-          (prev) => prev + (isText1 ? text1[currentIndex] : text2[currentIndex])
-        );
-        setCurrentIndex((prev) => prev + 1);
-      } else if (typeStatus === "deleting" && currentIndex > 0) {
-        // Deleting backward
-        setDisplayText((prev) => prev.slice(0, -1));
-        setCurrentIndex((prev) => prev - 1);
-      } else if (
-        typeStatus === "typing" &&
-        currentIndex === (isText1 ? text1.length : text2.length)
-      ) {
-        // Switch to deleting mode
-        // setTypeStatus("waiting");
-        setTimeout(() => {
-          setTypeStatus("deleting");
-        }, 2000); // Pause before deleting
-      } else if (typeStatus === "deleting" && currentIndex === 0) {
-        // Switch to typing mode
-        // setTypeStatus("waiting");
-        setTimeout(() => {
-          setIsText1((isText1) => !isText1);
-          setTypeStatus("typing");
-        }, 500);
-      }
+      const nextLength = displayText.length + (isDeleting ? -1 : 1);
+      setDisplayText(currentText.slice(0, nextLength));
     }, speed);
 
-    return () => clearTimeout(timeout); // Cleanup timeout
-  }, [currentIndex, typeStatus, text1, text2, speed, isText1]);
+    return () => clearTimeout(timeout);
+  }, [displayText, isDeleting, speed, textIndex, texts]);
 
-  // Cursor blinking effect
   useEffect(() => {
-    // if (typeStatus !== "waiting") return;
     const cursorInterval = setInterval(() => {
-      setShowCursor((prev) => !prev);
+      setShowCursor((visible) => !visible);
     }, 500);
+
     return () => clearInterval(cursorInterval);
-  }, [typeStatus]);
+  }, []);
 
   return (
     <p className="text-3xl sm:text-[42px]">
-      <span className=" text-transparent sm:bg-gradient-to-r to-foreground bg-gradient-to-t to-70% from-muted-foreground bg-clip-text font-semibold">
+      <span className="text-transparent sm:bg-gradient-to-r to-foreground bg-gradient-to-t to-70% from-muted-foreground bg-clip-text font-semibold">
         {displayText}
       </span>
 
-      <span className={`${showCursor ? "text-muted-foreground" : "hidden"}`}>
-        |
-      </span>
+      <span className={showCursor ? "text-muted-foreground" : "hidden"}>|</span>
     </p>
   );
 }
