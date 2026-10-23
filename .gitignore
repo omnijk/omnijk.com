@@ -36,14 +36,5 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-#txt
-*.txt
-
-#blog drafts
-/blogs
-
-#sanity
-/sanity
-
 #todo.md
 TODO.md

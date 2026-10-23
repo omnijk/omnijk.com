@@ -8,7 +8,6 @@ import Footer from "@/components/Footer";
 import MainWrapper from "@/components/MainWrapper";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { Toaster } from "sonner";
 
 const roboto_mono = Roboto_Mono({ subsets: ["latin"] });
 
@@ -43,7 +42,6 @@ export default function RootLayout({ children }) {
           </div>
           {isVercel ? <Analytics /> : null}
           {isVercel ? <SpeedInsights /> : null}
-          <Toaster />
         </ThemeProviderWrapper>
       </body>
     </html>

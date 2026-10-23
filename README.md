@@ -1,185 +1,85 @@
-<h1 align="center">omnijk.com</h1>
+# omnijk.com
 
-<p align="center"><a href="./public/docs/README_CN.md">简体中文</a></p>
-
-<p align="center">A personal website for developers</p>
+一个面向开发者的个人站点：首页、博客、项目、技术栈、经历五个页面。博客文章使用本地 MDX 管理，不需要数据库或任何第三方内容服务。
 
 <p align="center">
   <img src="https://img.shields.io/badge/License-MIT-orange"/>
-  <img src="https://img.shields.io/badge/PRs-Welcome-brightgreen"/>
-  <img src="https://img.shields.io/badge/Powered%20by-React-blue"/>
+  <img src="https://img.shields.io/badge/Powered%20by-Next.js-black"/>
 </p>
 
-![home page picture](./public/images/home.png)
+![首页截图](./public/images/home.png)
 
+## 技术栈
 
-## ⚙️ Tech Stacks
+- 框架：**Next.js 14（App Router）+ React 18**
+- 样式：**Tailwind CSS** + 少量 shadcn/ui 组件
+- 动画：**Framer Motion**
+- 技术栈图表：**ECharts**
+- 内容：**本地 MDX**（`gray-matter` 解析 frontmatter，`next-mdx-remote` 渲染正文）
 
-- Framework: **React + Next.js**
-- Styling: **Tailwind CSS** + **Shadcn UI**
-- Animation: **Framer Motion**
-- Database: **Supabase**
-- ORM: **Prisma**
-- Session Caching: **Upstash Redis**
-- CMS: **Sanity**
-- Authentication: **Clerk**
-- Deployment: **Vercel**
+> 项目当前**不需要 `.env`**，也没有数据库、Redis、Sanity、Clerk、Spotify 等外部依赖，克隆后即可直接运行。
 
-## 💡Get Started
+## 快速开始
 
-### Environment
+### 环境要求
 
-- [Node.js 18.18](https://nodejs.org/) or later.
+- Node.js 18.18 或更高版本（推荐 20+）
+- npm
 
-### Clone the repository:
+### 安装与开发
 
 ```bash
 git clone https://github.com/omnijk/omnijk.com
 cd omnijk.com
-```
-
-### Install dependencies:
-
-```bash
 npm install
-```
-
-### .env file
-
-Create a .env file in the root directory with the following:
-
-```
-# clerk
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
-CLERK_SECRET_KEY=
-
-# supabase
-DATABASE_URL=
-DIRECT_URL=
-
-# sanity
-NEXT_PUBLIC_SANITY_ID=
-
-# upstash redis
-UPSTASH_REDIS_REST_URL=
-UPSTASH_REDIS_REST_TOKEN=
-
-# spotify
-SPOTIFY_CLIENT_ID=
-SPOTIFY_CLIENT_SECRET=
-SPOTIFY_REDIRECT_URI=
-SPOTIFY_REFRESH_TOKEN=
-```
-
-Now we need to set all the environment variables.
-
-#### Clerk
-
-1. Go to [Clerk website](https://clerk.com/) and create an application. Select google and github as sign in options:
-   ![clerk1](./public/images/clerk1.png)
-2. Copy paste the environment variables to .env file
-   ![clerk2](./public/images/clerk2.png)
-
-#### Supabase
-
-1. Go to [Supabase](https://supabase.com/). Create a new project. **Important:** store the password here somewhere as you will be using it in the 3rd step. Wait a few minutes for supabase to set up the project.
-   ![supabase2](./public/images/supabase1.png)
-2. Click "connect" on the right top corner and select ORMs:
-   ![supabase3](./public/images/supabase2.png)
-3. Copy paste the environment variables to .env file. Replace the placeholder for password to the password you stored in the 1st step.
-
-4. In terminal run:
-
-```bash
-npx prisma db push
-```
-
-#### Sanity
-
-1. Create an Sanity account and sign in.
-2. In terminal, run the following command. You can replace "omnijk.com" with another name.
-
-```bash
-npm create sanity@latest -- --template clean --create-project "omnijk.com" --dataset production  --output-path sanity
-```
-
-3. Then you will probably be asked to sign in. After you sign in, follow the instructions:
-   ![sanity1](./public/images/sanity1.png)
-
-4. Go to /sanity/schemaTypes folder. Paste the following code to index.js:
-
-```javascript
-import { projectsType } from "./project";
-
-export const schemaTypes = [projectsType];
-```
-
-In the same folder, add a file named "project.js":
-
-```javascript
-import { defineField, defineType } from "sanity";
-
-export const projectsType = defineType({
-  name: "project",
-  title: "Project",
-  type: "document",
-  fields: [
-    defineField({
-      name: "title",
-      type: "string",
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: "image",
-      type: "image",
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: "description",
-      type: "text",
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: "link",
-      type: "url",
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: "tags",
-      type: "array",
-      of: [{ type: "string" }],
-      validation: (Rule) => Rule.required().min(1),
-    }),
-  ],
-});
-```
-
-5. Go to [sanity website](https://www.sanity.io/manage) to get project id and assign it to NEXT_PUBLIC_SANITY_ID in .env file.
-   ![sanity2](./public/images/sanity2.png)
-6. In terminal run the following:
-
-```bash
-cd sanity
 npm run dev
 ```
 
-7. Navigate to [http://omnijk.com/studio](http://omnijk.com/studio), now you can add projects to the website.
+浏览器打开 <http://localhost:3000>。
 
-#### Spotify
-
-This feature is newly added, I will write instructions to set it up soon. For now you can just comment out "Spotify" component in /page.js to prevent errors.
-
-### Run the server
-
-🎉 Congratulations! Now we can finally run the website:
+### 生产构建
 
 ```bash
-npm run dev
+npm run build
+npm start
 ```
 
-Navigate to [localhost:3000](http://localhost:3000) to see the website in action.
+`npm start` 默认监听 <http://localhost:3000>，可通过 `PORT` 环境变量修改端口。
 
-## Acknowledgements
+### 代码检查
 
-- The website is inspired by [zephyrlin](zephyrlin.me).
-- Thanks **omnifj** for help and guide.
+```bash
+npm run lint
+```
+
+## 目录结构
+
+```
+app/                 页面路由
+  page.js            首页
+  blog/              博客列表与文章详情（/blog、/blog/[slug]）
+  project/           项目页（数据来自 lib/project.js）
+  tech-stack/        技术栈雷达图
+  message/           个人经历时间线
+components/          页面组件与 ui 基础组件
+content/blog/        博客 MDX 文章
+lib/blog.js          读取并解析本地 MDX
+lib/project.js       项目列表静态数据
+public/              图片、图标、字体等静态资源
+```
+
+## 内容维护
+
+- **新增博客**：在 `content/blog/` 下新建 `.mdx` 文件，frontmatter 支持 `title`、`summary`、`image`、`author`、`publishedAt`、`tag`。
+- **修改项目**：编辑 `lib/project.js` 中的 `projects` 数组。
+- **修改经历**：编辑 `app/message/page.js` 中的 `experiences` 数组。
+- **修改技能**：首页技能条在 `components/SkillsBar.jsx`，技术栈页面在 `components/TechStackRadar.jsx`。
+
+## 部署
+
+可直接部署到 Vercel：导入仓库后使用默认的 Next.js 构建配置即可，无需配置环境变量。
+
+## 致谢
+
+- 站点灵感来自 [zephyrlin](https://zephyrlin.me)。
+- 感谢 omnifj 的帮助与指导。

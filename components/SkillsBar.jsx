@@ -1,18 +1,8 @@
 import CSSIcon from "@/public/icons/CSSIcon";
-import ExpressIcon from "@/public/icons/ExpressIcon";
 import HtmlIcon from "@/public/icons/HtmlIcon";
-import JavaIcon from "@/public/icons/JavaIcon";
 import JSIcon from "@/public/icons/JSIcon";
-import MongoIcon from "@/public/icons/MongoIcon";
-import MybatisIcon from "@/public/icons/MybatisIcon";
-import MySQLIcon from "@/public/icons/MySQLIcon";
-import NextIcon from "@/public/icons/NextIcon";
 import NodeIcon from "@/public/icons/NodeIcon";
-import PrismaIcon from "@/public/icons/PrismaIcon";
 import ReactIcon from "@/public/icons/ReactIcon";
-import RedisIcon from "@/public/icons/RedisIcon";
-import SpringIcon from "@/public/icons/SpringIcon";
-import SupabaseIcon from "@/public/icons/SupabaseIcon";
 import TailwindIcon from "@/public/icons/TailwindIcon";
 import ViteIcon from "@/public/icons/ViteIcon";
 
@@ -31,7 +21,6 @@ export default function SkillsBar() {
           <ViteIcon className="skillsIcon" />
           <TailwindIcon className="skillsIcon" />
           <NodeIcon className="skillsIcon" />
-          {/* <NextIcon className="skillsIcon" /> */}
         </div>
         <div className="flex flex-wrap items-center justify-between w-full transition-transform duration-200 hover:scale-[1.01]">
           <i className="iconfont icon-Typescript skillsIconFont text-[#3178c6]" aria-label="TypeScript" title="TypeScript" />
