@@ -1,19 +1,24 @@
 const experiences = [
   {
     date: "2026年6月 - 至今",
+    title: "AI前端开发实习生",
+    subtitle: "🏢 北京智精灵科技有限公司",
+    description:
+      "结识了许多优秀的高级开发者，我今后将秉持积极做事的心态，主动分享、持续升级认知与工具，在复杂问题中实现从“胜任”到“创造”的跨越。",
+  },
+  {
+    date: "2026年3月 - 2026年6月",
     title: "前端开发实习生",
     subtitle: "🏢 北京广通优云科技有限公司",
     description:
       "在实习中将理论知识付诸实践，持续成长，励志成为一名优秀的前端开发者。",
-    align: "left",
   },
   {
-    date: "2025年2月 - 至今",
+    date: "2024年2月 - 至今",
     title: "前端工程师",
     subtitle: "✈️ 说走就走!!!",
     description:
       "要去做前端工程师，前端是一个充满挑战和乐趣的领域，我希望能在这个领域中不断学习和成长。",
-    align: "right",
   },
   {
     date: "2023年9月 - 2027年6月",
@@ -21,10 +26,9 @@ const experiences = [
     subtitle: "🏫 陕西科技大学",
     description:
       "数据科学与大数据技术专业。在校期间学习了 web 前端基础、数据结构等课程。",
-    align: "left",
   },
-  
 ];
+
 export default function MessagePage() {
   return (
     <section className="page w-full -mt-8">
@@ -43,51 +47,55 @@ export default function MessagePage() {
         <div className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-border/80" />
 
         <div className="space-y-12 sm:space-y-16">
-          {experiences.map((experience) => (
-            <article
-              key={experience.date + experience.title}
-              className="relative grid gap-6 sm:grid-cols-[1fr_auto_1fr] sm:items-start"
-            >
-              <div
-                tabIndex={0}
-                className={`project-card group relative overflow-hidden rounded-2xl border border-border/60 bg-background/80 p-5 shadow-[0_10px_30px_rgba(15,23,42,0.05)] backdrop-blur-sm sm:max-w-md transform transition-all duration-300 hover:-translate-y-2 hover:border-sky-300/40 hover:shadow-2xl focus-visible:-translate-y-2 focus-visible:border-sky-300/40 focus-visible:shadow-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400/50 ${
-                  experience.align === "left"
-                    ? "sm:col-start-1 sm:justify-self-end"
-                    : "sm:col-start-3 sm:justify-self-start"
-                }`}
+          {experiences.map((experience, index) => {
+            const isLeft = index % 2 === 0;
+
+            return (
+              <article
+                key={experience.date + experience.title}
+                className="relative grid gap-6 sm:grid-cols-[1fr_auto_1fr] sm:items-start"
               >
-                <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-sky-400/60 to-transparent opacity-80" />
-                <div className="mb-3 text-xs italic text-muted-foreground transition-colors duration-200 group-hover:text-sky-300">
-                  📅 {experience.date}
+                <div
+                  tabIndex={0}
+                  className={`project-card group relative overflow-hidden rounded-2xl border border-border/60 bg-background/80 p-5 shadow-[0_10px_30px_rgba(15,23,42,0.05)] backdrop-blur-sm sm:max-w-md transform transition-all duration-300 hover:-translate-y-2 hover:border-sky-300/40 hover:shadow-2xl focus-visible:-translate-y-2 focus-visible:border-sky-300/40 focus-visible:shadow-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400/50 ${
+                    isLeft
+                      ? "sm:col-start-1 sm:justify-self-end"
+                      : "sm:col-start-3 sm:justify-self-start"
+                  }`}
+                >
+                  <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-sky-400/60 to-transparent opacity-80" />
+                  <div className="mb-3 text-xs italic text-muted-foreground transition-colors duration-200 group-hover:text-sky-300">
+                    📅 {experience.date}
+                  </div>
+                  <h2 className="text-xl font-semibold tracking-wide transition-colors duration-200 group-hover:text-sky-300">
+                    {experience.title}
+                  </h2>
+                  <p className="mt-2 text-sm font-medium text-foreground/85 transition-colors duration-200 group-hover:text-foreground">
+                    {experience.subtitle}
+                  </p>
+                  <p className="mt-3 text-sm leading-6 text-muted-foreground transition-colors duration-200 group-hover:text-foreground/80">
+                    {experience.description}
+                  </p>
                 </div>
-                <h2 className="text-xl font-semibold tracking-wide transition-colors duration-200 group-hover:text-sky-300">
-                  {experience.title}
-                </h2>
-                <p className="mt-2 text-sm font-medium text-foreground/85 transition-colors duration-200 group-hover:text-foreground">
-                  {experience.subtitle}
-                </p>
-                <p className="mt-3 text-sm leading-6 text-muted-foreground transition-colors duration-200 group-hover:text-foreground/80">
-                  {experience.description}
-                </p>
-              </div>
 
-              <div
-                role="button"
-                tabIndex={0}
-                className={`absolute left-1/2 hidden -translate-x-1/2 sm:block pointer-events-auto cursor-pointer ${
-                  experience.align === "right" ? "top-2" : "top-5"
-                }`}
-              >
-                <span className="block h-3 w-3 rounded-full border-4 border-background bg-sky-400 shadow-[0_0_0_8px_rgba(125,211,252,0.18)] transition-all duration-200 hover:scale-125 hover:shadow-[0_0_0_12px_rgba(125,211,252,0.24)] focus:scale-125 focus:shadow-[0_0_0_12px_rgba(125,211,252,0.24)]" />
-              </div>
+                <div
+                  role="button"
+                  tabIndex={0}
+                  className={`absolute left-1/2 hidden -translate-x-1/2 sm:block pointer-events-auto cursor-pointer ${
+                    isLeft ? "top-5" : "top-2"
+                  }`}
+                >
+                  <span className="block h-3 w-3 rounded-full border-4 border-background bg-sky-400 shadow-[0_0_0_8px_rgba(125,211,252,0.18)] transition-all duration-200 hover:scale-125 hover:shadow-[0_0_0_12px_rgba(125,211,252,0.24)] focus:scale-125 focus:shadow-[0_0_0_12px_rgba(125,211,252,0.24)]" />
+                </div>
 
-              <div
-                className={`hidden sm:block ${
-                  experience.align === "left" ? "sm:col-start-3" : "sm:col-start-1"
-                }`}
-              />
-            </article>
-          ))}
+                <div
+                  className={`hidden sm:block ${
+                    isLeft ? "sm:col-start-3" : "sm:col-start-1"
+                  }`}
+                />
+              </article>
+            );
+          })}
         </div>
       </div>
     </section>

@@ -40,7 +40,7 @@ export default function Hero() {
         </span>
       </p>
       <div className="mb-8 h-10 sm:mb-10">
-        <HeroAnimation text1={"<AI/>"} text2="<FrontEnd/>" />
+        <HeroAnimation texts={["<AI/>", "<FrontEnd/>", "<Agent/>"]} />
       </div>
       <p className="mb-8 text-xl text-sky-700/90 sm:mb-10 sm:text-[26px] dark:text-white w-fit">
         #omnijk #iccy 
