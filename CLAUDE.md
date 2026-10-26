@@ -31,8 +31,15 @@
 | --- | --- |
 | `npm run dev` | 开发服务器，默认 http://localhost:3000 |
 | `npm run lint` | ESLint 检查 |
-| `npm run build` | 生产构建（执行前必须先停掉 dev） |
-| `npm start` | 启动生产构建（需先 build） |
+| `npm run build` | 生产构建，生成 `.next/standalone`（执行前必须先停掉 dev） |
+| `npm start` | 运行 `.next/standalone/server.js`（需先 build） |
+
+## 构建产物
+
+- `next.config.mjs` 固定 `output: "standalone"`，生产构建会生成 `.next/standalone`。
+- `postbuild` 执行 `scripts/prepare-standalone.mjs`，把 `.next/static` 和 `public` 复制进 standalone 目录。
+- 启动 standalone：`npm start`，等价于 `node .next/standalone/server.js`，端口用 `PORT` 控制。
+- `.next/standalone` 只由生产构建生成；dev 会重写 `.next`，部署前必须重新 `npm run build`。
 
 ## 最重要的规则：dev 与 build 不能同时运行
 

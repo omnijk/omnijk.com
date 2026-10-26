@@ -44,7 +44,7 @@ npm run build
 npm start
 ```
 
-`npm start` 默认监听 <http://localhost:3000>，可通过 `PORT` 环境变量修改端口。
+构建会生成 `.next/standalone` 独立部署目录，`postbuild` 会自动把 `.next/static` 和 `public` 复制进去。`npm start` 直接运行 `node .next/standalone/server.js`，默认监听 <http://localhost:3000>，可通过 `PORT` 环境变量修改端口。
 
 ### 代码检查
 
