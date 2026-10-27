@@ -12,6 +12,9 @@ export default function BasisInfo() {
           <p className="font-medium text-base">
             Keep It Simple, Stupid.
           </p>
+          <p className="font-medium text-base">
+            Talk is cheap， show me your code.
+          </p>
         </div>
       </div>
     </div>

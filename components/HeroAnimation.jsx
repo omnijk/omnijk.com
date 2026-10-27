@@ -3,8 +3,13 @@
 import { useEffect, useState } from "react";
 
 export default function HeroAnimation({ texts, speed = 100 }) {
-  const [textIndex, setTextIndex] = useState(0);
-  const [displayText, setDisplayText] = useState(texts[0]);
+  const initialIndex = texts.reduce(
+    (longestIndex, text, index, list) =>
+      text.length > list[longestIndex].length ? index : longestIndex,
+    0
+  );
+  const [textIndex, setTextIndex] = useState(initialIndex);
+  const [displayText, setDisplayText] = useState(texts[initialIndex]);
   const [isDeleting, setIsDeleting] = useState(false);
   const [showCursor, setShowCursor] = useState(true);
 

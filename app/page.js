@@ -1,6 +1,3 @@
-export const dynamic = "force-dynamic";
-
-import MotionDivWrapper from "@/components/MotionDivWrapper";
 import { getBlogs } from "@/lib/blog";
 import Hero from "@/components/Hero";
 import SkillsBar from "@/components/SkillsBar";
@@ -12,11 +9,7 @@ export default async function Page() {
   const recentBlogs = blogs.slice(0, 3);
 
   return (
-    <MotionDivWrapper
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 2 }}
-    >
+    <>
       <section className="w-full mb-20 lg:w-2/3 min-h-[calc(100svh-500px)] flex items-center gap-20">
         <Hero />
       </section>
@@ -31,6 +24,6 @@ export default async function Page() {
           <SkillsBar />
         </aside>
       </section>
-    </MotionDivWrapper>
+    </>
   );
 }

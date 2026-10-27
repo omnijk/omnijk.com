@@ -7,6 +7,8 @@ const staticSrcDir = path.join(rootDir, ".next", "static");
 const staticDestDir = path.join(standaloneDir, ".next", "static");
 const publicSrcDir = path.join(rootDir, "public");
 const publicDestDir = path.join(standaloneDir, "public");
+const contentSrcDir = path.join(rootDir, "content");
+const contentDestDir = path.join(standaloneDir, "content");
 
 function copyDirectory(src, dest, label) {
   if (!fs.existsSync(src)) {
@@ -23,5 +25,6 @@ if (!fs.existsSync(standaloneDir)) {
 
 copyDirectory(staticSrcDir, staticDestDir, ".next/static");
 copyDirectory(publicSrcDir, publicDestDir, "public");
+copyDirectory(contentSrcDir, contentDestDir, "content");
 
 console.log("standalone 产物已准备完成：.next/standalone");
