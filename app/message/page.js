@@ -56,8 +56,7 @@ export default function MessagePage() {
                 className="relative grid gap-6 sm:grid-cols-[1fr_auto_1fr] sm:items-start"
               >
                 <div
-                  tabIndex={0}
-                  className={`project-card group relative overflow-hidden rounded-2xl border border-border/60 bg-background/80 p-5 shadow-[0_10px_30px_rgba(15,23,42,0.05)] backdrop-blur-sm sm:max-w-md transform transition-all duration-300 hover:-translate-y-2 hover:border-sky-300/40 hover:shadow-2xl focus-visible:-translate-y-2 focus-visible:border-sky-300/40 focus-visible:shadow-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400/50 ${
+                  className={`project-card group relative overflow-hidden rounded-2xl border border-border/60 bg-background/80 p-5 shadow-[0_10px_30px_rgba(15,23,42,0.05)] backdrop-blur-sm sm:max-w-md transform transition-all duration-300 hover:-translate-y-2 hover:border-sky-300/40 hover:shadow-2xl ${
                     isLeft
                       ? "sm:col-start-1 sm:justify-self-end"
                       : "sm:col-start-3 sm:justify-self-start"
@@ -79,13 +78,12 @@ export default function MessagePage() {
                 </div>
 
                 <div
-                  role="button"
-                  tabIndex={0}
-                  className={`absolute left-1/2 hidden -translate-x-1/2 sm:block pointer-events-auto cursor-pointer ${
+                  aria-hidden="true"
+                  className={`absolute left-1/2 hidden -translate-x-1/2 sm:block ${
                     isLeft ? "top-5" : "top-2"
                   }`}
                 >
-                  <span className="block h-3 w-3 rounded-full border-4 border-background bg-sky-400 shadow-[0_0_0_8px_rgba(125,211,252,0.18)] transition-all duration-200 hover:scale-125 hover:shadow-[0_0_0_12px_rgba(125,211,252,0.24)] focus:scale-125 focus:shadow-[0_0_0_12px_rgba(125,211,252,0.24)]" />
+                  <span className="block h-3 w-3 rounded-full border-4 border-background bg-sky-400 shadow-[0_0_0_8px_rgba(125,211,252,0.18)]" />
                 </div>
 
                 <div

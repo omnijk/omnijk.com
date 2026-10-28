@@ -6,6 +6,7 @@ export default function SocialMediaLink({ children, link }) {
       className="flex items-center justify-center w-8 h-8 p-[5px] duration-500 opacity-60 hover:opacity-100 border-muted-foreground "
       href={link}
       target="_blank"
+      rel="noopener noreferrer"
     >
       {children}
     </Link>

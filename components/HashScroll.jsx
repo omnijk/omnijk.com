@@ -3,11 +3,19 @@
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 
+function decodeHash(hash) {
+  try {
+    return decodeURIComponent(hash);
+  } catch {
+    return "";
+  }
+}
+
 export default function HashScroll() {
   const pathname = usePathname();
 
   useEffect(() => {
-    const id = decodeURIComponent(window.location.hash.slice(1));
+    const id = decodeHash(window.location.hash.slice(1));
 
     if (!id) {
       return;

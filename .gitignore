@@ -42,3 +42,6 @@ TODO.md
 # local verification artifacts
 /.chrome-*
 /.tmp-*
+
+# local agent skills
+/skills

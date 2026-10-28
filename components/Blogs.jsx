@@ -6,14 +6,11 @@ export default function Blogs({ blogs }) {
     <ul>
       {blogs.map((blog) => (
         <li key={blog.slug} className="mb-10">
-          <Link href={`/blog/${blog.slug}`}>
+          <Link href={`/blog/${encodeURIComponent(blog.slug)}`}>
             <div
               className={`flex flex-col sm:flex-row w-full lg:w-4/5 items-stretch gap-6 rounded-2xl  sm:shadow-[0_0px_1.2px_rgb(140,140,140)] shadow-[0_0px_2px_rgb(140,140,140)] hover:shadow-[0_0px_2px_rgb(140,140,140)] p-3 opacity-90 hover:opacity-100  hover:bg-muted`}
             >
-              <div
-                href={`/blog/${blog.slug}`}
-                className="relative aspect-[48/27] w-full sm:w-80 rounded-2xl shrink-0"
-              >
+              <div className="relative aspect-[48/27] w-full sm:w-80 rounded-2xl shrink-0">
                 {blog.image ? (
                   <Image
                     src={blog.image}

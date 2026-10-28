@@ -31,6 +31,7 @@
 | --- | --- |
 | `npm run dev` | 开发服务器，默认 http://localhost:3000 |
 | `npm run lint` | ESLint 检查 |
+| `npm run typecheck` | TypeScript 类型检查 |
 | `npm run build` | 生产构建，生成 `.next/standalone`（执行前必须先停掉 dev） |
 | `npm start` | 运行 `.next/standalone/server.js`（需先 build） |
 

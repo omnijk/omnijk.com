@@ -9,27 +9,9 @@ import HashScroll from "@/components/HashScroll";
 import RelatedPosts from "@/components/RelatedPosts";
 import TableOfContents from "@/components/TableOfContents";
 import { getBlogBySlug, getBlogs } from "@/lib/blog";
-import { slugifyHeading, textFromChildren } from "@/lib/toc";
+import { createHeadingSlugger, textFromChildren } from "@/lib/toc";
 
-const mdxComponents = {
-  h2: ({ children, ...props }) => (
-    <h2
-      id={slugifyHeading(textFromChildren(children))}
-      className="scroll-mt-28"
-      {...props}
-    >
-      {children}
-    </h2>
-  ),
-  h3: ({ children, ...props }) => (
-    <h3
-      id={slugifyHeading(textFromChildren(children))}
-      className="scroll-mt-28"
-      {...props}
-    >
-      {children}
-    </h3>
-  ),
+const baseMdxComponents = {
   pre: (props) => (
     <pre
       className="overflow-x-auto rounded-lg border border-border/60 bg-[#f8fafc] p-4 text-sm dark:border-white/10 dark:bg-[#0b0b0b]"
@@ -66,6 +48,28 @@ export default async function Blog({ params }) {
   const relatedPosts = (await getBlogs())
     .filter((post) => post.slug !== slug)
     .slice(0, 3);
+  const toHeadingId = createHeadingSlugger();
+  const mdxComponents = {
+    ...baseMdxComponents,
+    h2: ({ children, ...props }) => (
+      <h2
+        id={toHeadingId(textFromChildren(children)) || undefined}
+        className="scroll-mt-28"
+        {...props}
+      >
+        {children}
+      </h2>
+    ),
+    h3: ({ children, ...props }) => (
+      <h3
+        id={toHeadingId(textFromChildren(children)) || undefined}
+        className="scroll-mt-28"
+        {...props}
+      >
+        {children}
+      </h3>
+    ),
+  };
 
   return (
     <section className="w-full">

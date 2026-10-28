@@ -12,12 +12,9 @@ export default function RecentUpdate({ blogs }) {
       <ul className="grid grid-cols-1 gap-10 w-full">
         {blogs.map((blog) => (
           <li key={blog.slug} className="group">
-            <Link href={`/blog/${blog.slug}`} className="block">
+            <Link href={`/blog/${encodeURIComponent(blog.slug)}`} className="block">
               <div className="relative rounded-2xl shadow-[0_0px_1.2px_rgb(140,140,140)]">
-                <div
-                  href={`/blog/${blog.slug}`}
-                  className="relative aspect-[240/135] w-full overflow-hidden rounded-2xl"
-                >
+                <div className="relative aspect-[240/135] w-full overflow-hidden rounded-2xl">
                   {blog.image ? (
                     <Image
                       src={blog.image}

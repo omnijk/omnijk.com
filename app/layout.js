@@ -8,6 +8,7 @@ import Footer from "@/components/Footer";
 import MainWrapper from "@/components/MainWrapper";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { SITE_URL } from "@/lib/site";
 
 const roboto_mono = Roboto_Mono({ subsets: ["latin"] });
 
@@ -18,6 +19,7 @@ const inter = Inter({
 });
 
 export const metadata = {
+  metadataBase: new URL(SITE_URL),
   title: "omnijk | Developer",
   description:
     "Hi, I'm omnijk, an undergraduate student at Shaanxi University of Science & Technology majoring in Data Science and Big Data Technology. I am passionate about developing applications that merge aesthetics with purpose.",

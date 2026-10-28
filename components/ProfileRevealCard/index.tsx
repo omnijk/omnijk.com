@@ -34,12 +34,6 @@ const defaultBaseTheme: ProfileRevealCardTheme = {
   overlay: 'transparent',
 };
 
-const defaultOverlayTheme: ProfileRevealCardTheme = {
-  background: 'transparent',
-  color: 'rgb(23, 30, 46)',
-  overlay: 'transparent',
-};
-
 export default function ProfileRevealCard({
   baseText,
   overlayText,
@@ -50,9 +44,6 @@ export default function ProfileRevealCard({
   style,
 }: ProfileRevealCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
-
-  // 鼠标在卡片内的坐标
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
   // 鼠标是否位于卡片内
   const [isInside, setIsInside] = useState(false);
@@ -68,15 +59,40 @@ export default function ProfileRevealCard({
   const currentBaseText = swapped ? overlayText : baseText;
   const currentOverlayText = swapped ? baseText : overlayText;
 
-  // 跟踪鼠标位置，用于移动圆形光圈与光标环
-  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    setMousePos({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
-    });
+  // 直接更新 CSS 变量，避免鼠标移动触发 React 重渲染
+  const updatePointer = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    const card = cardRef.current;
+
+    if (!card) {
+      return;
+    }
+
+    const rect = card.getBoundingClientRect();
+    card.style.setProperty("--x", `${e.clientX - rect.left}px`);
+    card.style.setProperty("--y", `${e.clientY - rect.top}px`);
   }, []);
+
+  const handleMouseEnter = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      updatePointer(e);
+      setIsInside(true);
+    },
+    [updatePointer]
+  );
+
+  const toggleLanguage = useCallback(() => {
+    setSwapped((value) => !value);
+  }, []);
+
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent<HTMLDivElement>) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        toggleLanguage();
+      }
+    },
+    [toggleLanguage]
+  );
 
   const cssVariables = {
     '--profile-base-bg': currentTheme.background,
@@ -90,18 +106,18 @@ export default function ProfileRevealCard({
       className={`profile-reveal-card ${className}`}
       ref={cardRef}
       style={{ ...cssVariables, ...style } as React.CSSProperties}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={() => setIsInside(true)}
+      role="button"
+      tabIndex={0}
+      aria-label="切换中英文"
+      onMouseMove={updatePointer}
+      onMouseEnter={handleMouseEnter}
       onMouseLeave={() => setIsInside(false)}
-      onDoubleClick={() => setSwapped((s) => !s)}
+      onDoubleClick={toggleLanguage}
+      onKeyDown={handleKeyDown}
     >
       {/* 底层文字 */}
       <div
         className={`profile-reveal-card__base ${isInside ? 'active' : ''}`}
-        style={{
-          '--x': `${mousePos.x}px`,
-          '--y': `${mousePos.y}px`,
-        } as React.CSSProperties}
       >
         <p className={baseTextClassName}>{currentBaseText}</p>
       </div>
@@ -109,24 +125,12 @@ export default function ProfileRevealCard({
       {/* 上层文字：通过 clip-path 圆形蒙版显示 */}
       <div
         className={`profile-reveal-card__overlay ${isInside ? 'active' : ''}`}
-        style={{
-          '--x': `${mousePos.x}px`,
-          '--y': `${mousePos.y}px`,
-        } as React.CSSProperties}
       >
         <p>{currentOverlayText}</p>
       </div>
 
       {/* 跟随鼠标的圆形光标环 */}
-      {isInside && (
-        <div
-          className="profile-reveal-card__cursor"
-          style={{
-            left: `${mousePos.x}px`,
-            top: `${mousePos.y}px`,
-          }}
-        />
-      )}
+      {isInside && <div className="profile-reveal-card__cursor" />}
 
       {/* 当前操作提示 */}
       <div className="profile-reveal-card__hint">

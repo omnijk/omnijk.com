@@ -8,6 +8,11 @@
   background: transparent;
 }
 
+.profile-reveal-card:focus-visible {
+  outline: 2px solid hsl(var(--ring));
+  outline-offset: 4px;
+}
+
 /* 底图与上层文字共用全屏居中布局 */
 .profile-reveal-card__base,
 .profile-reveal-card__overlay,
@@ -71,6 +76,8 @@
 /* 跟随鼠标的圆形光标环 */
 .profile-reveal-card__cursor {
   position: absolute;
+  left: var(--x, 0px);
+  top: var(--y, 0px);
   width: 96px;
   height: 96px;
   margin-left: -48px;

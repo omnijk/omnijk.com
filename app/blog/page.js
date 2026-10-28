@@ -13,7 +13,7 @@ export default async function BlogPage() {
       transition={{ duration: 2 }}
       className="flex flex-col gap-10 "
     >
-      <Description page="Blog" description="" />
+      <Description page="Blog" />
       <Blogs blogs={blogs} />
     </MotionDivWrapper>
   );

@@ -76,6 +76,7 @@ export default function TableOfContents({ headings }) {
                 <li key={heading.id}>
                   <a
                     href={`#${heading.id}`}
+                    aria-current={isActive ? "location" : undefined}
                     onClick={() => setActiveId(heading.id)}
                     className={`relative flex rounded-md py-2 text-sm leading-6 transition-colors ${
                       isSubHeading ? "pl-9" : "pl-4"
