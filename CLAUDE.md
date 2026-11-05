@@ -42,6 +42,12 @@
 - 启动 standalone：`npm start`，等价于 `node .next/standalone/server.js`，端口用 `PORT` 控制。
 - `.next/standalone` 只由生产构建生成；dev 会重写 `.next`，部署前必须重新 `npm run build`。
 
+## 缓存策略
+
+- HTML 入口的 `Cache-Control` 在 `next.config.mjs` 的 `headers()` 中统一设置，目前为 `public, max-age=0, must-revalidate`。
+- 不要给 HTML 设置一年期 `s-maxage`；`s-maxage=31536000` 只适用于带 hash 的 `/_next/static/*`。
+- 缓存头不要写在 middleware 里；这个项目没有 middleware，Next 的静态页面默认头由构建层控制。
+
 ## 最重要的规则：dev 与 build 不能同时运行
 
 - `next dev` 和 `next build` 共用 `.next` 目录。dev 运行时执行 build 会覆盖开发服务器的构建产物，导致：
